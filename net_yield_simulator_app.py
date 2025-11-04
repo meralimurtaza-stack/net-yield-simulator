@@ -630,7 +630,8 @@ def generate_xirr_cashflows(equity, loan_notional, total_invested, interest_rate
     freq_months = {
         "Quarterly": 3,
         "Semi-Annual": 6,
-        "Annual": 12
+        "Annual": 12,
+        "At Maturity": None  # Special case - only pays at end
     }
     
     interest_increment = freq_months[interest_freq]
@@ -639,6 +640,10 @@ def generate_xirr_cashflows(equity, loan_notional, total_invested, interest_rate
     # Generate separate date sequences for each payment type
     def generate_payment_dates(start_date, end_date, months_increment):
         """Generate payment dates based on frequency"""
+        if months_increment is None:
+            # "At Maturity" case - return empty list (payment only at end_date)
+            return []
+        
         dates = []
         current_date = start_date
         
@@ -1104,7 +1109,7 @@ with tab2:
     with c2:
         coupon_freq = st.selectbox(
             "Coupon Payment Frequency", 
-            ["Annual", "Semi-Annual", "Quarterly"], 
+            ["Annual", "Semi-Annual", "Quarterly", "At Maturity"], 
             index=0,
             key="coupon_payment_freq_selector"
         )
