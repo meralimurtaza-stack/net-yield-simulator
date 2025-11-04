@@ -1,6 +1,6 @@
 """
-Net Yield Simulator Pro - Fresh UI Version
-Matching the screenshot design exactly
+Net Yield Simulator Pro - Redesigned Layout
+Three tables only: Summary, XIRR, Rate Breakdown
 """
 
 import streamlit as st
@@ -20,19 +20,16 @@ try:
     HAS_NPF = True
 except ImportError:
     HAS_NPF = False
-    st.warning("numpy-financial not available. Using fallback XIRR calculation.")
 
 # Page Configuration
 st.set_page_config(
     page_title="Net Yield Simulator Pro",
     page_icon="📊",
     layout="wide",
-    initial_sidebar_state="expanded"  # Can be "expanded" or "collapsed"
+    initial_sidebar_state="expanded"
 )
 
-# ----------------------------------
-# FRESH CSS - MATCHING SCREENSHOT
-# ----------------------------------
+# Custom CSS - Keep the same styling but remove header styles
 st.markdown("""
 <style>
     /* Import Google Fonts */
@@ -70,53 +67,6 @@ st.markdown("""
         padding-top: 2rem !important;
     }
     
-    /* Enhanced collapse button styling */
-    section[data-testid="stSidebar"] button[kind="header"] {
-        background-color: #ffffff !important;
-        border: 1px solid #d1d5db !important;
-        border-radius: 8px !important;
-        width: 40px !important;
-        height: 40px !important;
-        padding: 8px !important;
-        margin: 0.5rem !important;
-        transition: all 0.2s ease !important;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
-    }
-    
-    section[data-testid="stSidebar"] button[kind="header"]:hover {
-        background-color: #f9fafb !important;
-        border-color: #5b6b89 !important;
-        transform: translateX(2px) !important;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15) !important;
-    }
-    
-    /* Collapsed sidebar styling */
-    section[data-testid="stSidebar"][aria-expanded="false"] {
-        min-width: 60px !important;
-        max-width: 60px !important;
-    }
-    
-    /* Show expand button when collapsed */
-    button[data-testid="baseButton-header"] {
-        background-color: #5b6b89 !important;
-        border: none !important;
-        border-radius: 0 8px 8px 0 !important;
-        width: 48px !important;
-        height: 48px !important;
-        position: fixed !important;
-        left: 0 !important;
-        top: 1rem !important;
-        z-index: 999 !important;
-        box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2) !important;
-        transition: all 0.2s ease !important;
-    }
-    
-    button[data-testid="baseButton-header"]:hover {
-        background-color: #4a5a75 !important;
-        transform: translateX(4px) !important;
-        box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.25) !important;
-    }
-    
     /* Sidebar Headers */
     section[data-testid="stSidebar"] h3 {
         color: #1f2937 !important;
@@ -152,57 +102,11 @@ st.markdown("""
         padding: 0.5rem 0.75rem !important;
     }
     
-    section[data-testid="stSidebar"] input:focus,
-    section[data-testid="stSidebar"] select:focus {
-        border-color: #5b6b89 !important;
-        box-shadow: 0 0 0 3px rgba(91, 107, 137, 0.1) !important;
-        outline: none !important;
-    }
-    
     /* Sidebar Selectbox */
     section[data-testid="stSidebar"] .stSelectbox > div > div {
         background-color: #ffffff !important;
         border: 1px solid #d1d5db !important;
         border-radius: 6px !important;
-    }
-    
-    section[data-testid="stSidebar"] .stSelectbox [data-baseweb="select"] {
-        background-color: #ffffff !important;
-    }
-    
-    /* Remove inner borders and boxes from selectbox */
-    section[data-testid="stSidebar"] .stSelectbox [data-baseweb="select"] > div {
-        border: none !important;
-        background-color: transparent !important;
-        box-shadow: none !important;
-    }
-    
-    /* Style the dropdown arrow properly */
-    section[data-testid="stSidebar"] .stSelectbox [data-baseweb="select"] svg {
-        color: #4b5563 !important;
-    }
-    
-    /* Clean selectbox text styling */
-    section[data-testid="stSidebar"] .stSelectbox [data-baseweb="select"] span {
-        color: #1f2937 !important;
-        font-size: 0.875rem !important;
-    }
-    
-    /* Remove any lingering boxes */
-    section[data-testid="stSidebar"] [role="button"] {
-        background-color: transparent !important;
-    }
-    
-    /* Sidebar Number Input Buttons */
-    section[data-testid="stSidebar"] button[kind="secondary"] {
-        background-color: #ffffff !important;
-        border: 1px solid #d1d5db !important;
-        color: #4b5563 !important;
-    }
-    
-    section[data-testid="stSidebar"] button[kind="secondary"]:hover {
-        background-color: #f9fafb !important;
-        border-color: #5b6b89 !important;
     }
     
     /* Sidebar Info Boxes */
@@ -223,154 +127,13 @@ st.markdown("""
         margin: 1.5rem 0 !important;
     }
     
-    /* ==================== HEADER SECTION ==================== */
-    .custom-header {
-        background: linear-gradient(135deg, #5b6b89 0%, #4a5a75 100%);
-        padding: 2.5rem 2rem;
-        border-radius: 12px;
-        text-align: center;
-        margin-bottom: 2rem;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    }
-    
-    .custom-header h1 {
-        color: #ffffff !important;
-        font-size: 2rem !important;
-        font-weight: 700 !important;
-        margin: 0 !important;
-        letter-spacing: -0.5px;
-    }
-    
-    .custom-header p {
-        color: #d1d9e6 !important;
-        font-size: 0.9375rem !important;
-        margin: 0.5rem 0 0 0 !important;
-        font-weight: 400 !important;
-    }
-    
-    /* ==================== METRIC CARDS ==================== */
-    div[data-testid="stMetric"] {
-        background-color: #ffffff !important;
-        padding: 1.25rem 1.5rem !important;
-        border-radius: 10px !important;
-        border: 1px solid #e5e7eb !important;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
-    }
-    
-    div[data-testid="stMetric"] label {
-        color: #6b7280 !important;
-        font-size: 0.75rem !important;
-        font-weight: 600 !important;
-        text-transform: uppercase !important;
-        letter-spacing: 0.5px !important;
-    }
-    
-    div[data-testid="stMetric"] [data-testid="stMetricValue"] {
-        color: #111827 !important;
-        font-size: 1.75rem !important;
-        font-weight: 700 !important;
-    }
-    
-    div[data-testid="stMetric"] [data-testid="stMetricDelta"] {
-        font-size: 0.8125rem !important;
-        font-weight: 500 !important;
-    }
-    
-    /* ==================== TABS ==================== */
-    .stTabs {
-        background-color: transparent !important;
-    }
-    
-    .stTabs [data-baseweb="tab-list"] {
-        gap: 0.5rem;
-        background-color: transparent !important;
-        border-bottom: none !important;
-    }
-    
-    .stTabs [data-baseweb="tab"] {
-        background-color: #ffffff !important;
-        border: 1px solid #e5e7eb !important;
-        border-radius: 8px !important;
-        padding: 0.75rem 1.5rem !important;
-        color: #4b5563 !important;
-        font-weight: 600 !important;
-        font-size: 0.875rem !important;
-    }
-    
-    .stTabs [data-baseweb="tab"]:hover {
-        background-color: #f9fafb !important;
-        border-color: #5b6b89 !important;
-        color: #5b6b89 !important;
-    }
-    
-    .stTabs [aria-selected="true"] {
-        background: linear-gradient(135deg, #5b6b89 0%, #4a5a75 100%) !important;
-        color: #ffffff !important;
-        border-color: #5b6b89 !important;
-    }
-    
-    .stTabs [data-baseweb="tab-highlight"],
-    .stTabs [data-baseweb="tab-border"] {
-        display: none !important;
-    }
-    
-    /* ==================== CONTENT SECTIONS ==================== */
+    /* ==================== TABLE STYLES ==================== */
     h3 {
         color: #111827 !important;
         font-size: 1.25rem !important;
         font-weight: 700 !important;
-        margin-bottom: 1.5rem !important;
-        margin-top: 2rem !important;
-    }
-    
-    h4 {
-        color: #374151 !important;
-        font-size: 1rem !important;
-        font-weight: 600 !important;
         margin-bottom: 1rem !important;
-    }
-    
-    /* ==================== INCOME/COST CARDS ==================== */
-    .income-card {
-        background: linear-gradient(135deg, #10b981 0%, #059669 50%, #047857 100%);
-        color: white;
-        padding: 1.5rem;
-        border-radius: 12px;
-        text-align: center;
-        margin-bottom: 1.5rem;
-        box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
-    }
-    
-    .cost-card {
-        background: linear-gradient(135deg, #ef4444 0%, #dc2626 50%, #b91c1c 100%);
-        color: white;
-        padding: 1.5rem;
-        border-radius: 12px;
-        text-align: center;
-        margin-bottom: 1.5rem;
-        box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25);
-    }
-    
-    .income-card h4, .cost-card h4 {
-        color: rgba(255, 255, 255, 0.9);
-        margin: 0;
-        font-size: 0.7rem;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-    }
-    
-    .income-card h2, .cost-card h2 {
-        margin: 0.5rem 0 0.25rem 0;
-        font-size: 1.75rem;
-        font-weight: 700;
-        color: white;
-    }
-    
-    .income-card p, .cost-card p {
-        margin: 0;
-        opacity: 0.9;
-        font-size: 0.8125rem;
+        margin-top: 0 !important;
     }
     
     /* ==================== DATAFRAMES ==================== */
@@ -417,11 +180,6 @@ st.markdown("""
         padding: 0.75rem 1rem !important;
     }
     
-    .streamlit-expanderHeader:hover {
-        background-color: #f9fafb !important;
-        border-color: #5b6b89 !important;
-    }
-    
     .streamlit-expanderContent {
         background-color: #ffffff !important;
         border: 1px solid #e5e7eb !important;
@@ -429,89 +187,13 @@ st.markdown("""
         border-radius: 0 0 8px 8px !important;
         padding: 1rem !important;
     }
-    
-    /* ==================== CHARTS ==================== */
-    .js-plotly-plot {
-        border-radius: 10px !important;
-        background-color: #ffffff !important;
-        border: 1px solid #e5e7eb !important;
-        padding: 1rem !important;
-    }
-    
-    /* ==================== RESULT HIGHLIGHT ==================== */
-    .result-highlight {
-        background: linear-gradient(135deg, #5b6b89 0%, #4a5a75 100%);
-        color: white;
-        padding: 2rem;
-        border-radius: 12px;
-        text-align: center;
-        font-size: 2.5rem;
-        font-weight: 700;
-        margin: 2rem 0;
-        box-shadow: 0 4px 12px rgba(91, 107, 137, 0.3);
-    }
-    
-    /* ==================== DIVIDERS ==================== */
-    hr {
-        margin: 2rem 0 !important;
-        border: none !important;
-        height: 1px !important;
-        background-color: #e5e7eb !important;
-    }
-    
-    /* ==================== BUTTONS ==================== */
-    .stButton > button {
-        background: linear-gradient(135deg, #5b6b89 0%, #4a5a75 100%) !important;
-        color: white !important;
-        border: none !important;
-        border-radius: 8px !important;
-        padding: 0.5rem 1.5rem !important;
-        font-weight: 600 !important;
-        font-size: 0.875rem !important;
-    }
-    
-    .stButton > button:hover {
-        box-shadow: 0 4px 12px rgba(91, 107, 137, 0.3) !important;
-        transform: translateY(-1px);
-    }
-    
-    /* ==================== HIDE UNWANTED ELEMENTS ==================== */
-    /* Only hide actual text nodes that say "keyboard_double_arrow" when icons fail to load */
-    /* Do NOT hide the icon containers themselves */
-    
-    /* Fix for when Material Icons font fails - hide the fallback text */
-    button[kind="header"] span:not(:has(svg)):not(:has(*)):empty::after,
-    button[kind="header"] span:not(:has(svg)):not(:has(*)):empty::before {
-        content: none !important;
-    }
-    
-    /* Ensure icons display properly */
-    button[kind="header"] svg,
-    .streamlit-expanderHeader svg {
-        display: inline-block !important;
-        vertical-align: middle !important;
-    }
-    
-    /* Hide only text that says "keyboard" specifically - not the icon containers */
-    span:not(:has(svg)):not(:has(*)):only-child {
-        font-size: 0 !important;
-    }
-    
-    /* But ensure SVG icons are always visible */
-    svg {
-        font-size: 1.5rem !important;
-    }
-
 </style>
 """, unsafe_allow_html=True)
 
-# Real Rate Index Table Data from Excel (200 rows)
+# Real Rate Index Table Data from Excel
 @st.cache_data  
 def load_rate_index_table():
     """Load embedded rate index table data from Excel"""
-    import pandas as pd
-    
-    # Real rate index data from your Excel file
     rate_data = [
         {'Floating Ref': '1M', 'M': 1.0, 'LAST_PRICE': 0.039925, 'Custodian': 'DB', 'CoF v SOFR': 0.0, 'Swap Cost': 0.0, 'Loan Spread': 0.0068},
         {'Floating Ref': '1M', 'M': 2.0, 'LAST_PRICE': 0.0393299, 'Custodian': 'DB', 'CoF v SOFR': 0.0, 'Swap Cost': 0.0, 'Loan Spread': 0.0068},
@@ -569,7 +251,6 @@ def load_rate_index_table():
     return pd.DataFrame(rate_data)
 
 # Utility Functions
-
 def calculate_workday(trade_date, days_to_settle):
     """Calculate settlement date skipping weekends"""
     current_date = trade_date
@@ -580,7 +261,6 @@ def calculate_workday(trade_date, days_to_settle):
             days_added += 1
     return current_date
 
-
 def calculate_days360(start_date, end_date):
     """Calculate days using 30/360 convention"""
     d1 = min(start_date.day, 30)
@@ -588,7 +268,6 @@ def calculate_days360(start_date, end_date):
     return 360 * (end_date.year - start_date.year) + \
            30 * (end_date.month - start_date.month) + \
            (d2 - d1)
-
 
 def calculate_cashflow(amount, rate, days, convention):
     """Calculate cash flow based on daycount convention"""
@@ -598,7 +277,6 @@ def calculate_cashflow(amount, rate, days, convention):
         return amount * rate * days / 360
     else:  # 30/360
         return amount * rate * days / 360
-
 
 def get_rate_index_value(rate_table, floating_ref=None, tenor_months=None, custodian=None, column='LAST_PRICE'):
     """Lookup value from rate index table with specific logic per field"""
@@ -620,7 +298,6 @@ def get_rate_index_value(rate_table, floating_ref=None, tenor_months=None, custo
     if not result.empty:
         return result[column].iloc[0]
     return 0.04  # Default fallback
-
 
 def generate_xirr_cashflows(equity, loan_notional, total_invested, interest_rate, coupon_rate,
                            start_date, end_date, interest_freq, coupon_freq):
@@ -713,7 +390,6 @@ def generate_xirr_cashflows(equity, loan_notional, total_invested, interest_rate
     
     return dates, principal_flows, interest_payments, coupon_receipts, total_cashflows
 
-
 def calculate_xirr(dates, cashflows):
     """Calculate XIRR using proper Excel XIRR formula with fallback"""
     try:
@@ -798,22 +474,13 @@ def calculate_xirr(dates, cashflows):
 if 'calculated' not in st.session_state:
     st.session_state.calculated = False
 
-# Main Title Header
-st.markdown("""
-<div class="custom-header">
-    <h1>Net Yield Simulator Pro</h1>
-    <p>Professional Structured Product Calculator</p>
-</div>
-""", unsafe_allow_html=True)
-
 # Load Rate Index Table
 rate_index_table = load_rate_index_table()
 
-# Sidebar Inputs
+# Sidebar Inputs (keeping configuration side the same)
 with st.sidebar:
     st.markdown("<h3>Configuration</h3>", unsafe_allow_html=True)
     
-
     # Product Description
     st.markdown("<h4>Product Description</h4>", unsafe_allow_html=True)
     note_type = st.text_input("Note Type", value="TBC")
@@ -850,14 +517,10 @@ with st.sidebar:
     
     # Calculate term values
     term_days = (maturity_date - issue_date_ts).days + 1
-    
-    # Term (Months) - Complex ROUND formula with YEAR/MONTH functions
     term_months = round(((maturity_date.year - issue_date_ts.year) * 12 + 
                         (maturity_date.month - issue_date_ts.month)) + 
                        (maturity_date.day - issue_date_ts.day) / 30)
-    
-    # Term (Years) - ROUND(YEARFRAC(Issue_Date, Maturity_Date), 0)  
-    term_years = round(term_days / 365.25, 2)  # More accurate year fraction
+    term_years = round(term_days / 365.25, 2)
 
     st.info(f"Term: {term_days} days ({term_months} months, {term_years} years)")
 
@@ -870,8 +533,6 @@ with st.sidebar:
     # Returns & Rates
     st.markdown("<h4>Returns & Rates</h4>", unsafe_allow_html=True)
     coupon_type = st.text_input("Coupon Type", value="Fixed")
-    
-    # Coupon Rate - manual input only
     coupon_rate_pct = st.number_input(
         "Coupon Rate p.a. (%)", 
         min_value=0.0, 
@@ -880,18 +541,13 @@ with st.sidebar:
         step=0.01, 
         format="%.2f"
     )
-    
     coupon_rate = coupon_rate_pct / 100
 
     st.divider()
 
-    # Funding Plan (C26-C30)
+    # Funding Plan
     st.markdown("<h4>Funding Plan</h4>", unsafe_allow_html=True)
-    
-    # C26: Equity (Input)
     equity = st.number_input("Equity (USD)", value=1500000, min_value=100000, step=100000)
-    
-    # C29: LTV (Input) - manual input only
     ltv_pct = st.number_input(
         "LTV (%)", 
         min_value=0.0, 
@@ -900,19 +556,11 @@ with st.sidebar:
         step=0.1, 
         format="%.1f"
     )
-    
     ltv = ltv_pct / 100
-    
-    # C30: Loan Ratio (Calculated) = LTV / (1 - LTV)
     loan_ratio = ltv / (1 - ltv) if ltv < 1 else 0
-    
-    # C28: Total Invested (Calculated) = Equity * (1 + Loan_Ratio)
     total_invested = equity * (1 + loan_ratio)
-    
-    # C27: Loan Notional (Calculated) = Total_Invested - Equity
     loan_notional = total_invested - equity
 
-    # Display calculated values
     st.info(f"Loan Ratio: {loan_ratio:.3f}")
     st.info(f"Total Invested: ${total_invested:,.0f}")
     st.info(f"Loan Notional: ${loan_notional:,.0f}")
@@ -925,45 +573,36 @@ with st.sidebar:
     floating_ref = st.selectbox("Floating Reference", ["1M", "3M", "6M", "12M"])
 
     # Calculate borrowing costs from rate index using correct logic
-    
-    # C36: ST Reference Rate - Match only on Floating Ref
     st_reference_rate = get_rate_index_value(rate_index_table, floating_ref=floating_ref, column='LAST_PRICE')
-    
-    # C37: Fixing Adjustment - Match only on Financing Tenor, then subtract ST Rate
     tenor_last_price = get_rate_index_value(rate_index_table, tenor_months=financing_tenor, column='LAST_PRICE')
     fixing_adjustment = tenor_last_price - st_reference_rate
-    
-    # C35: Reference Rate = ST Reference Rate + Fixing Adjustment
     reference_rate = st_reference_rate + fixing_adjustment
-    
-    # C38: Swap Cost - Match on Lender AND Financing Tenor
     swap_cost = get_rate_index_value(rate_index_table, tenor_months=financing_tenor, custodian=lender, column='Swap Cost')
-    
-    # C39: CoF vs SOFR - Match on Lender AND Financing Tenor
     cof_spread = get_rate_index_value(rate_index_table, tenor_months=financing_tenor, custodian=lender, column='CoF v SOFR')
-    
-    # C40: Bank Spread - Match on Lender AND Financing Tenor
     bank_spread = get_rate_index_value(rate_index_table, tenor_months=financing_tenor, custodian=lender, column='Loan Spread')
-
-    # C34: Total Cost of Borrowing = C35 + C38 + C39 + C40
     total_borrowing_cost = reference_rate + swap_cost + cof_spread + bank_spread
 
-    # Display clean borrowing cost summary
     st.info(f"Total Borrowing Cost: {total_borrowing_cost:.3%}")
     
-    # Optional detailed breakdown (collapsed by default)
-    with st.expander("View Detailed Rate Breakdown"):
-        rate_breakdown = pd.DataFrame({
-            'Component': ['Reference Rate', 'ST Reference Rate', 'Fixing Adjustment', 'Swap Cost', 'CoF v SOFR', 'Bank Spread'],
-            'Rate': [reference_rate, st_reference_rate, fixing_adjustment, swap_cost, cof_spread, bank_spread]
-        })
-        st.dataframe(rate_breakdown.style.format({'Rate': '{:.4%}'}), use_container_width=True)
+    st.divider()
+    
+    # XIRR Payment Frequency Controls
+    st.markdown("<h4>XIRR Payment Frequencies</h4>", unsafe_allow_html=True)
+    interest_freq = st.selectbox(
+        "Interest Payment Frequency", 
+        ["Quarterly", "Semi-Annual", "Annual"], 
+        index=0,
+        key="interest_payment_freq_selector"
+    )
+    coupon_freq = st.selectbox(
+        "Coupon Payment Frequency", 
+        ["Annual", "Semi-Annual", "Quarterly", "At Maturity"], 
+        index=0,
+        key="coupon_payment_freq_selector"
+    )
 
-# Main Content Area
-col1, col2, col3, col4 = st.columns(4)
-
-# Calculate cash flows using selected daycount conventions (C47-C54)
-# Use the improved calculation method from tab1 for consistency
+# Main Content Area - Three Tables Only
+# Calculate cash flows
 if asset_daycount == "A/365":
     coupon_cashflow = (total_invested * coupon_rate * term_days) / 365
 elif asset_daycount == "A/360":
@@ -980,292 +619,94 @@ else:  # 30/360
     days_360 = calculate_days360(issue_date_ts, maturity_date)
     borrowing_cost = days_360 * total_borrowing_cost * loan_notional / 360
 
-# C59: Net Yield (Total) = Selected_Coupon - Selected_Cost_of_Borrowing
 net_yield_total = coupon_cashflow - borrowing_cost
-
-# C60: Net Yield (p.a.) = Net_Yield_Total / (Equity * Term_Years)
 net_yield_pa = net_yield_total / (equity * term_years) if term_years > 0 else 0
 
-# Display Key Metrics (neutral delta colours)
-with col1:
-    st.metric("Net Yield p.a.", f"{net_yield_pa:.2%}", 
-             delta=f"${net_yield_total:,.0f} total",
-             delta_color="normal" if net_yield_pa > 0 else "inverse")
+# Generate XIRR cash flows
+dates, principal_flows, interest_payments, coupon_receipts, total_cashflows = generate_xirr_cashflows(
+    equity, loan_notional, total_invested, total_borrowing_cost, 
+    coupon_rate, issue_date_ts, maturity_date, interest_freq, coupon_freq
+)
 
-with col2:
-    st.metric("Total Invested", f"${total_invested:,.0f}",
-             delta=f"LTV: {ltv:.0%}")
+# Calculate XIRR
+xirr_result = calculate_xirr(dates, total_cashflows)
 
-with col3:
-    st.metric("Loan Amount", f"${loan_notional:,.0f}",
-             delta=f"Rate: {total_borrowing_cost:.2%}")
+# TABLE 1: Summary Table
+st.markdown("### Summary", unsafe_allow_html=True)
 
-with col4:
-    st.metric("Equity Amount", f"${equity:,.0f}",
-             delta=f"{(1-ltv):.0%} of total")
+# Create tenor display (e.g., "3Y")
+tenor_display = f"{int(tenor_years)}Y" if tenor_years == int(tenor_years) else f"{tenor_years}Y"
 
-# Detailed Analysis Tabs
-tab1, tab2, tab3 = st.tabs(["Cash Flow Analysis", "XIRR Calculation", "Sensitivity Analysis"])
+summary_data = pd.DataFrame({
+    'Parameter': [
+        'Tenor',
+        'Note Type',
+        'Note Issuer',
+        'Underlying / Reference Entity',
+        'Drawn LTV (%)',
+        'Coupon p.a. (%)',
+        'Total Cost of Borrowing (%)',
+        'Exp. Return on Equity p.a. (%)',
+        'XIRR'
+    ],
+    'Value': [
+        tenor_display,
+        note_type,
+        issuer,
+        underlying,
+        f"{ltv:.1%}",
+        f"{coupon_rate:.2%}",
+        f"{total_borrowing_cost:.3%}",
+        f"{net_yield_pa:.2%}",
+        f"{xirr_result:.2%}"
+    ]
+})
 
-with tab1:
-    st.markdown("<h3>Cash Flow Breakdown</h3>", unsafe_allow_html=True)
+st.dataframe(summary_data, use_container_width=True, hide_index=True)
 
-    # Calculate all daycount convention scenarios as per requirements
-    conventions = ["A/365", "A/360", "30/360"]
-    
-    coupon_results = {}
-    borrowing_results = {}
-    net_results = {}
-    
-    for conv in conventions:
-        if conv == "30/360":
-            # C49 & C54: Use DAYS360 formula
-            days_calc = calculate_days360(issue_date_ts, maturity_date)
-        else:
-            # C47, C48, C52, C53: Use actual term days
-            days_calc = term_days
-            
-        # Coupon/Profit calculations (C47-C49)
-        if conv == "A/365":
-            # C47: (Total_Invested * Coupon_Rate * Term_Days) / 365
-            coupon_cf = (total_invested * coupon_rate * term_days) / 365
-        elif conv == "A/360": 
-            # C48: (Total_Invested * Coupon_Rate * Term_Days) / 360
-            coupon_cf = (total_invested * coupon_rate * term_days) / 360
-        else:  # 30/360
-            # C49: DAYS360(Issue_Date, Maturity_Date) * Coupon_Rate * Total_Invested / 360
-            coupon_cf = days_calc * coupon_rate * total_invested / 360
-            
-        # Cost of Borrowing calculations (C52-C54)
-        if conv == "A/365":
-            # C52: (Loan_Notional * Total_Cost_of_Borrowing * Term_Days) / 365
-            borrowing_cf = (loan_notional * total_borrowing_cost * term_days) / 365
-        elif conv == "A/360":
-            # C53: (Loan_Notional * Total_Cost_of_Borrowing * Term_Days) / 360
-            borrowing_cf = (loan_notional * total_borrowing_cost * term_days) / 360
-        else:  # 30/360
-            # C54: DAYS360(Issue_Date, Maturity_Date) * Total_Cost_of_Borrowing * Loan_Notional / 360
-            borrowing_cf = days_calc * total_borrowing_cost * loan_notional / 360
-        
-        net_cf = coupon_cf - borrowing_cf
-        
-        coupon_results[conv] = coupon_cf
-        borrowing_results[conv] = borrowing_cf
-        net_results[conv] = net_cf
+# TABLE 2: XIRR Table
+st.markdown("### XIRR", unsafe_allow_html=True)
 
-    # Display selected convention results cleanly
-    selected_coupon = coupon_results[asset_daycount]
-    selected_borrowing = borrowing_results[liability_daycount]
-    selected_net = selected_coupon - selected_borrowing
-    
-    c1, c2 = st.columns(2)
-    with c1:
-        st.markdown(f"""
-        <div class='income-card'>
-            <h4>Coupon Income ({asset_daycount})</h4>
-            <h2>${selected_coupon:,.2f}</h2>
-            <p>Rate: {coupon_rate:.2%} on ${total_invested:,.0f}</p>
-        </div>
-        """, unsafe_allow_html=True)
-    with c2:
-        st.markdown(f"""
-        <div class='cost-card'>
-            <h4>Borrowing Cost ({liability_daycount})</h4>
-            <h2>${selected_borrowing:,.2f}</h2>
-            <p>Rate: {total_borrowing_cost:.4%} on ${loan_notional:,.0f}</p>
-        </div>
-        """, unsafe_allow_html=True)
+xirr_df = pd.DataFrame({
+    'Date': dates,
+    'Principal': principal_flows,
+    'Interest': interest_payments,
+    'Coupon': coupon_receipts,
+    'Total Cash Flow': total_cashflows,
+    'Cumulative': np.cumsum(total_cashflows)
+})
 
-    # Optional detailed analysis (collapsed by default)
-    with st.expander("View All Daycount Convention Comparisons"):
-        cf_data = pd.DataFrame({
-            'Daycount Convention': conventions,
-            'Coupon Income': [coupon_results[conv] for conv in conventions],
-            'Borrowing Cost': [borrowing_results[conv] for conv in conventions],
-            'Net Cash Flow': [net_results[conv] for conv in conventions],
-            'Net Yield p.a.': [net_results[conv] / (equity * term_years) if term_years > 0 else 0 for conv in conventions]
-        })
+st.dataframe(xirr_df.style.format({
+    'Date': lambda x: x.strftime('%Y-%m-%d'),
+    'Principal': '${:,.2f}',
+    'Interest': '${:,.2f}',
+    'Coupon': '${:,.2f}',
+    'Total Cash Flow': '${:,.2f}',
+    'Cumulative': '${:,.2f}'
+}), use_container_width=True)
 
-        st.dataframe(cf_data.style.format({
-            'Coupon Income': '${:,.2f}',
-            'Borrowing Cost': '${:,.2f}',
-            'Net Cash Flow': '${:,.2f}',
-            'Net Yield p.a.': '{:.2%}'
-        }), use_container_width=True)
+# TABLE 3: Rate Breakdown Table (moved from sidebar)
+st.markdown("### Rate Breakdown", unsafe_allow_html=True)
 
-with tab2:
-    st.markdown("<h3>XIRR Analysis</h3>", unsafe_allow_html=True)
+rate_breakdown_data = pd.DataFrame({
+    'Component': [
+        'ST Reference Rate',
+        'Fixing Adjustment', 
+        'Reference Rate',
+        'Swap Cost',
+        'CoF v SOFR',
+        'Bank Spread',
+        'Total Cost of Borrowing'
+    ],
+    'Rate': [
+        f"{st_reference_rate:.4%}",
+        f"{fixing_adjustment:.4%}",
+        f"{reference_rate:.4%}",
+        f"{swap_cost:.4%}",
+        f"{cof_spread:.4%}",
+        f"{bank_spread:.4%}",
+        f"{total_borrowing_cost:.4%}"
+    ]
+})
 
-    # Payment Frequency Controls - FIXED VERSION (no session state complications)
-    c1, c2 = st.columns(2)
-    with c1:
-        interest_freq = st.selectbox(
-            "Interest Payment Frequency", 
-            ["Quarterly", "Semi-Annual", "Annual"], 
-            index=0,
-            key="interest_payment_freq_selector"
-        )
-        
-    with c2:
-        coupon_freq = st.selectbox(
-            "Coupon Payment Frequency", 
-            ["Annual", "Semi-Annual", "Quarterly", "At Maturity"], 
-            index=0,
-            key="coupon_payment_freq_selector"
-        )
-
-    # Generate XIRR cash flows with fixed function
-    dates, principal_flows, interest_payments, coupon_receipts, total_cashflows = generate_xirr_cashflows(
-        equity, loan_notional, total_invested, total_borrowing_cost, 
-        coupon_rate, issue_date_ts, maturity_date, interest_freq, coupon_freq
-    )
-
-    # Calculate XIRR using proper formula
-    xirr_result = calculate_xirr(dates, total_cashflows)
-
-    # Display XIRR result prominently
-    st.markdown(f"""
-    <div class="result-highlight">
-        XIRR: {xirr_result:.2%}
-    </div>
-    """, unsafe_allow_html=True)
-
-    # Payment Schedule Table
-    st.markdown("<h4>Payment Schedule</h4>", unsafe_allow_html=True)
-
-    schedule_df = pd.DataFrame({
-        'Date': dates,
-        'Principal': principal_flows,
-        'Interest': interest_payments,
-        'Coupon': coupon_receipts,
-        'Total Cash Flow': total_cashflows,
-        'Cumulative': np.cumsum(total_cashflows)
-    })
-
-    st.dataframe(schedule_df.style.format({
-        'Date': lambda x: x.strftime('%Y-%m-%d'),
-        'Principal': '${:,.2f}',
-        'Interest': '${:,.2f}',
-        'Coupon': '${:,.2f}',
-        'Total Cash Flow': '${:,.2f}',
-        'Cumulative': '${:,.2f}'
-    }))
-
-    # Visualize cash flows with better colors
-    fig = go.Figure()
-
-    fig.add_trace(go.Bar(
-        x=dates,
-        y=total_cashflows,
-        name='Total Cash Flows',
-        marker_color=['#dc3545' if cf < 0 else '#28a745' for cf in total_cashflows]
-    ))
-
-    fig.add_trace(go.Scatter(
-        x=dates,
-        y=np.cumsum(total_cashflows),
-        name='Cumulative',
-        mode='lines+markers',
-        line=dict(color='#5b6b89', width=3),
-        marker=dict(color='#5b6b89', size=8)
-    ))
-
-    fig.update_layout(
-        title='Cash Flow Timeline (XIRR Analysis)',
-        xaxis_title='Date',
-        yaxis_title='Cash Flow ($)',
-        hovermode='x unified',
-        height=500,
-        showlegend=True,
-        plot_bgcolor='white',
-        paper_bgcolor='white'
-    )
-
-    st.plotly_chart(fig, use_container_width=True)
-
-with tab3:
-    st.markdown("<h3>Sensitivity Analysis</h3>", unsafe_allow_html=True)
-
-    # Sensitivity to LTV
-    ltv_range = np.arange(0.5, 0.95, 0.05)
-    yields = []
-
-    for ltv_test in ltv_range:
-        loan_ratio_test = ltv_test / (1 - ltv_test)
-        total_invested_test = equity * (1 + loan_ratio_test)
-        loan_notional_test = total_invested_test - equity
-
-        coupon_test = calculate_cashflow(total_invested_test, coupon_rate, days_calc, asset_daycount)
-        cost_test = calculate_cashflow(loan_notional_test, total_borrowing_cost, days_calc, liability_daycount)
-
-        net_yield_test = (coupon_test - cost_test) / (equity * term_years) if term_years > 0 else 0
-        yields.append(net_yield_test)
-
-    # Create sensitivity chart (line MAIN, vline MAIN dashed)
-    fig_sens = go.Figure()
-
-    fig_sens.add_trace(go.Scatter(
-        x=ltv_range * 100,
-        y=[y * 100 for y in yields],
-        mode='lines+markers',
-        name='Net Yield',
-        line=dict(color='#5b6b89', width=3),
-        marker=dict(color='#5b6b89')
-    ))
-
-    fig_sens.add_vline(x=ltv * 100, line_dash="dash", line_color='red', annotation_text=f"Current LTV: {ltv:.0%}", annotation_position="top left")
-
-    fig_sens.update_layout(
-        title='Net Yield Sensitivity to LTV',
-        xaxis_title='LTV (%)',
-        yaxis_title='Net Yield p.a. (%)',
-        hovermode='x',
-        height=400,
-        plot_bgcolor='white',
-        paper_bgcolor='white'
-    )
-
-    st.plotly_chart(fig_sens, use_container_width=True)
-
-    # Summary Statistics
-    c1, c2, c3 = st.columns(3)
-    with c1:
-        st.metric("Min Yield", f"{min(yields):.2%}", delta=f"at {ltv_range[yields.index(min(yields))]:.0%} LTV", delta_color="off")
-    with c2:
-        st.metric("Max Yield", f"{max(yields):.2%}", delta=f"at {ltv_range[yields.index(max(yields))]:.0%} LTV", delta_color="off")
-    with c3:
-        st.metric("Current Yield", f"{net_yield_pa:.2%}", delta=f"at {ltv:.0%} LTV", delta_color="normal")
-
-# Optional Technical Details (collapsed by default)
-with st.expander("Technical Validation & Formula Details"):
-    st.markdown("**Key Calculation Summary:**")
-    
-    summary_data = {
-        'Component': ['Issue Date', 'Maturity Date', 'Term', 'Total Invested', 'Loan Notional', 'Borrowing Cost', 'Net Yield p.a.'],
-        'Value': [
-            issue_date_ts.strftime('%Y-%m-%d'),
-            maturity_date.strftime('%Y-%m-%d'),
-            f'{term_days} days ({term_years:.2f} years)',
-            f'${total_invested:,.0f}',
-            f'${loan_notional:,.0f}',
-            f'{total_borrowing_cost:.3%}',
-            f'{net_yield_pa:.2%}'
-        ]
-    }
-    
-    st.dataframe(pd.DataFrame(summary_data), use_container_width=True)
-    
-    # XIRR Summary
-    st.markdown("**XIRR Calculation Summary:**")
-    st.write(f"• Payment Frequencies: Interest {interest_freq}, Coupon {coupon_freq}")
-    st.write(f"• XIRR Result: {xirr_result:.3%}")
-    st.write("• Method: Newton-Raphson (Excel-compatible)")
-
-# Footer
-st.divider()
-st.markdown("""
-<div style='text-align: center; color: #6b7280; padding: 1.5rem;'>
-    <p><strong>Net Yield Simulator Pro</strong></p>
-    <p><em>Professional structured product calculator - for informational purposes only</em></p>
-</div>
-""", unsafe_allow_html=True)
+st.dataframe(rate_breakdown_data, use_container_width=True, hide_index=True)
