@@ -811,7 +811,7 @@ with st.sidebar:
 
     # Product Description
     st.markdown("<h4>Product Description</h4>", unsafe_allow_html=True)
-    note_type = st.selectbox("Note Type", ["CLN", "RCN", "DLN"])
+    note_type = st.text_input("Note Type", value="TBC")
     underlying = st.text_input("Underlying Exposure", value="TBC")
     issuer = st.text_input("Issuer Name", value="TBC")
 
