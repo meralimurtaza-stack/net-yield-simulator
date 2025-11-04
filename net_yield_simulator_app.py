@@ -290,336 +290,64 @@ window.addEventListener('load', function() {
 });
 </script>
 """, height=0)
-    
-    /* Sidebar Headers */
-    section[data-testid="stSidebar"] h3 {
-        color: #1f2937 !important;
-        font-weight: 600 !important;
-        font-size: 0.875rem !important;
-        margin-bottom: 1.5rem !important;
-        margin-top: 0 !important;
-    }
-    
-    section[data-testid="stSidebar"] h4 {
-        color: #1f2937 !important;
-        font-weight: 600 !important;
-        font-size: 0.875rem !important;
-        margin-top: 1.5rem !important;
-        margin-bottom: 1rem !important;
-    }
-    
-    /* Sidebar Labels */
-    section[data-testid="stSidebar"] label {
-        color: #4b5563 !important;
-        font-weight: 500 !important;
-        font-size: 0.8125rem !important;
-    }
-    
-    /* Sidebar Input Fields */
-    section[data-testid="stSidebar"] input,
-    section[data-testid="stSidebar"] select {
-        background-color: #ffffff !important;
-        border: 1px solid #d1d5db !important;
-        border-radius: 6px !important;
-        color: #1f2937 !important;
-        font-size: 0.875rem !important;
-        padding: 0.5rem 0.75rem !important;
-    }
-    
-    /* Sidebar Selectbox */
-    section[data-testid="stSidebar"] .stSelectbox > div > div {
-        background-color: #ffffff !important;
-        border: 1px solid #d1d5db !important;
-        border-radius: 6px !important;
-    }
-    
-    /* Sidebar Info Boxes */
-    section[data-testid="stSidebar"] .stAlert {
-        background-color: #dde3eb !important;
-        border: 1px solid #c2cad6 !important;
-        border-radius: 6px !important;
-        color: #1f2937 !important;
-        padding: 0.75rem !important;
-        font-size: 0.8125rem !important;
-    }
-    
-    /* Sidebar Dividers */
-    section[data-testid="stSidebar"] hr {
-        border: none !important;
-        height: 1px !important;
-        background-color: #d1d5db !important;
-        margin: 1.5rem 0 !important;
-    }
-    
-    /* ==================== TABLE STYLES ==================== */
-    h3 {
-        color: #111827 !important;
-        font-size: 1.25rem !important;
-        font-weight: 700 !important;
-        margin-bottom: 1rem !important;
-        margin-top: 0 !important;
-    }
-    
-    /* ==================== DATAFRAMES ==================== */
-    .stDataFrame {
-        border: 1px solid #e5e7eb !important;
-        border-radius: 10px !important;
-        overflow: hidden !important;
-    }
-    
-    .stDataFrame table {
-        background-color: #ffffff !important;
-    }
-    
-    .stDataFrame thead tr th {
-        background-color: #f9fafb !important;
-        color: #374151 !important;
-        font-weight: 600 !important;
-        font-size: 0.8125rem !important;
-        border-bottom: 2px solid #e5e7eb !important;
-        padding: 0.75rem 1rem !important;
-    }
-    
-    .stDataFrame tbody tr {
-        border-bottom: 1px solid #f3f4f6 !important;
-    }
-    
-    .stDataFrame tbody td {
-        color: #1f2937 !important;
-        font-size: 0.875rem !important;
-        padding: 0.75rem 1rem !important;
-    }
-    
-    .stDataFrame tbody tr:hover {
-        background-color: #f9fafb !important;
-    }
-    
-    /* ==================== EXPANDERS ==================== */
-    .streamlit-expanderHeader {
-        background-color: #ffffff !important;
-        border: 1px solid #e5e7eb !important;
-        border-radius: 8px !important;
-        color: #374151 !important;
-        font-weight: 600 !important;
-        padding: 0.75rem 1rem !important;
-    }
-    
-    .streamlit-expanderContent {
-        background-color: #ffffff !important;
-        border: 1px solid #e5e7eb !important;
-        border-top: none !important;
-        border-radius: 0 0 8px 8px !important;
-        padding: 1rem !important;
-    }
-</style>
-""", unsafe_allow_html=True)
 
 # Real Rate Index Table Data from Excel
 @st.cache_data  
 def load_rate_index_table():
     """Load embedded rate index table data from Excel"""
     rate_data = [
-    { 'Floating Ref': None, 'M': 0.25, 'LAST_PRICE': 0.039867, 'Custodian': 'Barc', 'CoF v SOFR': 0.001, 'Swap Cost': 0.0005, 'Loan Spread': 0.0065 },
-    { 'Floating Ref': None, 'M': 0.5, 'LAST_PRICE': 0.0399563, 'Custodian': 'Barc', 'CoF v SOFR': 0.001, 'Swap Cost': 0.0005, 'Loan Spread': 0.0065 },
-    { 'Floating Ref': None, 'M': 0.75, 'LAST_PRICE': 0.0398649, 'Custodian': 'Barc', 'CoF v SOFR': 0.001, 'Swap Cost': 0.0005, 'Loan Spread': 0.0065 },
-    { 'Floating Ref': '1M', 'M': 1.0, 'LAST_PRICE': 0.039925, 'Custodian': 'Barc', 'CoF v SOFR': 0.001, 'Swap Cost': 0.0005, 'Loan Spread': 0.0065 },
-    { 'Floating Ref': '1M', 'M': 2.0, 'LAST_PRICE': 0.0393299, 'Custodian': 'Barc', 'CoF v SOFR': 0.001, 'Swap Cost': 0.0005, 'Loan Spread': 0.0065 },
-    { 'Floating Ref': '3M', 'M': 3.0, 'LAST_PRICE': 0.0388755, 'Custodian': 'Barc', 'CoF v SOFR': 0.001, 'Swap Cost': 0.0005, 'Loan Spread': 0.0065 },
-    { 'Floating Ref': '3M', 'M': 4.0, 'LAST_PRICE': 0.03848, 'Custodian': 'Barc', 'CoF v SOFR': 0.001, 'Swap Cost': 0.0005, 'Loan Spread': 0.0065 },
-    { 'Floating Ref': '3M', 'M': 5.0, 'LAST_PRICE': 0.0381285, 'Custodian': 'Barc', 'CoF v SOFR': 0.001, 'Swap Cost': 0.0005, 'Loan Spread': 0.0065 },
-    { 'Floating Ref': '6M', 'M': 6.0, 'LAST_PRICE': 0.0378526, 'Custodian': 'Barc', 'CoF v SOFR': 0.001, 'Swap Cost': 0.0005, 'Loan Spread': 0.0065 },
-    { 'Floating Ref': '3M', 'M': 7.0, 'LAST_PRICE': 0.037563, 'Custodian': 'Barc', 'CoF v SOFR': 0.001, 'Swap Cost': 0.0005, 'Loan Spread': 0.0065 },
-    { 'Floating Ref': '3M', 'M': 8.0, 'LAST_PRICE': 0.0372395, 'Custodian': 'Barc', 'CoF v SOFR': 0.001, 'Swap Cost': 0.0005, 'Loan Spread': 0.0065 },
-    { 'Floating Ref': '9M', 'M': 9.0, 'LAST_PRICE': 0.0369332, 'Custodian': 'Barc', 'CoF v SOFR': 0.001, 'Swap Cost': 0.0005, 'Loan Spread': 0.0065 },
-    { 'Floating Ref': '3M', 'M': 10.0, 'LAST_PRICE': 0.0365935, 'Custodian': 'Barc', 'CoF v SOFR': 0.001, 'Swap Cost': 0.0005, 'Loan Spread': 0.0065 },
-    { 'Floating Ref': '3M', 'M': 11.0, 'LAST_PRICE': 0.0362817, 'Custodian': 'Barc', 'CoF v SOFR': 0.001, 'Swap Cost': 0.0005, 'Loan Spread': 0.0065 },
-    { 'Floating Ref': '12M', 'M': 12.0, 'LAST_PRICE': 0.035995, 'Custodian': 'Barc', 'CoF v SOFR': 0.001, 'Swap Cost': 0.0005, 'Loan Spread': 0.0065 },
-    { 'Floating Ref': '3M', 'M': 13.0, 'LAST_PRICE': 0.035629, 'Custodian': 'Barc', 'CoF v SOFR': 0.001, 'Swap Cost': 0.0005, 'Loan Spread': 0.0065 },
-    { 'Floating Ref': '3M', 'M': 14.0, 'LAST_PRICE': 0.0352932, 'Custodian': 'Barc', 'CoF v SOFR': 0.001, 'Swap Cost': 0.0005, 'Loan Spread': 0.0065 },
-    { 'Floating Ref': '3M', 'M': 15.0, 'LAST_PRICE': 0.035, 'Custodian': 'Barc', 'CoF v SOFR': 0.001, 'Swap Cost': 0.0005, 'Loan Spread': 0.0065 },
-    { 'Floating Ref': '3M', 'M': 16.0, 'LAST_PRICE': 0.034766, 'Custodian': 'Barc', 'CoF v SOFR': 0.001, 'Swap Cost': 0.0005, 'Loan Spread': 0.0065 },
-    { 'Floating Ref': '3M', 'M': 17.0, 'LAST_PRICE': 0.0345381, 'Custodian': 'Barc', 'CoF v SOFR': 0.001, 'Swap Cost': 0.0005, 'Loan Spread': 0.0065 },
-    { 'Floating Ref': '3M', 'M': 18.0, 'LAST_PRICE': 0.034362, 'Custodian': 'Barc', 'CoF v SOFR': 0.001, 'Swap Cost': 0.0005, 'Loan Spread': 0.0065 },
-    { 'Floating Ref': '3M', 'M': 19.0, 'LAST_PRICE': 0.034195, 'Custodian': 'Barc', 'CoF v SOFR': 0.001, 'Swap Cost': 0.0005, 'Loan Spread': 0.0065 },
-    { 'Floating Ref': '3M', 'M': 20.0, 'LAST_PRICE': 0.0340556, 'Custodian': 'Barc', 'CoF v SOFR': 0.001, 'Swap Cost': 0.0005, 'Loan Spread': 0.0065 },
-    { 'Floating Ref': '3M', 'M': 21.0, 'LAST_PRICE': 0.03394, 'Custodian': 'Barc', 'CoF v SOFR': 0.001, 'Swap Cost': 0.0005, 'Loan Spread': 0.0065 },
-    { 'Floating Ref': '3M', 'M': 22.0, 'LAST_PRICE': 0.0338324, 'Custodian': 'Barc', 'CoF v SOFR': 0.001, 'Swap Cost': 0.0005, 'Loan Spread': 0.0065 },
-    { 'Floating Ref': '3M', 'M': 23.0, 'LAST_PRICE': 0.0337583, 'Custodian': 'Barc', 'CoF v SOFR': 0.001, 'Swap Cost': 0.0005, 'Loan Spread': 0.0065 },
-    { 'Floating Ref': '3M', 'M': 24.0, 'LAST_PRICE': 0.033683, 'Custodian': 'Barc', 'CoF v SOFR': 0.001, 'Swap Cost': 0.0005, 'Loan Spread': 0.0065 },
-    { 'Floating Ref': '3M', 'M': 25.0, 'LAST_PRICE': None, 'Custodian': 'Barc', 'CoF v SOFR': 0.001, 'Swap Cost': 0.0005, 'Loan Spread': 0.0065 },
-    { 'Floating Ref': '3M', 'M': 26.0, 'LAST_PRICE': None, 'Custodian': 'Barc', 'CoF v SOFR': 0.001, 'Swap Cost': 0.0005, 'Loan Spread': 0.0065 },
-    { 'Floating Ref': '3M', 'M': 27.0, 'LAST_PRICE': 0.033423, 'Custodian': 'Barc', 'CoF v SOFR': 0.001, 'Swap Cost': 0.0005, 'Loan Spread': 0.0065 },
-    { 'Floating Ref': '3M', 'M': 28.0, 'LAST_PRICE': None, 'Custodian': 'Barc', 'CoF v SOFR': 0.001, 'Swap Cost': 0.0005, 'Loan Spread': 0.0065 },
-    { 'Floating Ref': '3M', 'M': 29.0, 'LAST_PRICE': None, 'Custodian': 'Barc', 'CoF v SOFR': 0.001, 'Swap Cost': 0.0005, 'Loan Spread': 0.0065 },
-    { 'Floating Ref': '3M', 'M': 30.0, 'LAST_PRICE': 0.033291, 'Custodian': 'Barc', 'CoF v SOFR': 0.001, 'Swap Cost': 0.0005, 'Loan Spread': 0.0065 },
-    { 'Floating Ref': '3M', 'M': 31.0, 'LAST_PRICE': None, 'Custodian': 'Barc', 'CoF v SOFR': 0.001, 'Swap Cost': 0.0005, 'Loan Spread': 0.0065 },
-    { 'Floating Ref': '3M', 'M': 32.0, 'LAST_PRICE': None, 'Custodian': 'Barc', 'CoF v SOFR': 0.001, 'Swap Cost': 0.0005, 'Loan Spread': 0.0065 },
-    { 'Floating Ref': '3M', 'M': 33.0, 'LAST_PRICE': 0.0332509, 'Custodian': 'Barc', 'CoF v SOFR': 0.001, 'Swap Cost': 0.0005, 'Loan Spread': 0.0065 },
-    { 'Floating Ref': '3M', 'M': 34.0, 'LAST_PRICE': None, 'Custodian': 'Barc', 'CoF v SOFR': 0.001, 'Swap Cost': 0.0005, 'Loan Spread': 0.0065 },
-    { 'Floating Ref': '3M', 'M': 35.0, 'LAST_PRICE': None, 'Custodian': 'Barc', 'CoF v SOFR': 0.001, 'Swap Cost': 0.0005, 'Loan Spread': 0.0065 },
-    { 'Floating Ref': '3M', 'M': 36.0, 'LAST_PRICE': 0.0332725, 'Custodian': 'Barc', 'CoF v SOFR': 0.001, 'Swap Cost': 0.0005, 'Loan Spread': 0.0065 },
-    { 'Floating Ref': '3M', 'M': 42.0, 'LAST_PRICE': 0.033265, 'Custodian': 'Barc', 'CoF v SOFR': 0.001, 'Swap Cost': 0.0005, 'Loan Spread': 0.0065 },
-    { 'Floating Ref': '3M', 'M': 48.0, 'LAST_PRICE': 0.0334167, 'Custodian': 'Barc', 'CoF v SOFR': 0.001, 'Swap Cost': 0.0005, 'Loan Spread': 0.0065 },
-    { 'Floating Ref': '3M', 'M': 54.0, 'LAST_PRICE': None, 'Custodian': 'Barc', 'CoF v SOFR': 0.001, 'Swap Cost': 0.0005, 'Loan Spread': 0.0065 },
-    { 'Floating Ref': '3M', 'M': 57.0, 'LAST_PRICE': None, 'Custodian': 'Barc', 'CoF v SOFR': 0.001, 'Swap Cost': 0.0005, 'Loan Spread': 0.0065 },
-    { 'Floating Ref': '3M', 'M': 60.0, 'LAST_PRICE': 0.0337801, 'Custodian': 'Barc', 'CoF v SOFR': 0.001, 'Swap Cost': 0.0005, 'Loan Spread': 0.0065 },
-    { 'Floating Ref': '3M', 'M': 63.0, 'LAST_PRICE': None, 'Custodian': 'Barc', 'CoF v SOFR': 0.001, 'Swap Cost': 0.0005, 'Loan Spread': 0.0065 },
-    { 'Floating Ref': '3M', 'M': 72.0, 'LAST_PRICE': 0.03431, 'Custodian': 'Barc', 'CoF v SOFR': 0.001, 'Swap Cost': 0.0005, 'Loan Spread': 0.0065 },
-    { 'Floating Ref': '3M', 'M': 84.0, 'LAST_PRICE': 0.03488, 'Custodian': 'Barc', 'CoF v SOFR': 0.001, 'Swap Cost': 0.0005, 'Loan Spread': 0.0065 },
-    { 'Floating Ref': '3M', 'M': 96.0, 'LAST_PRICE': 0.03545, 'Custodian': 'Barc', 'CoF v SOFR': 0.001, 'Swap Cost': 0.0005, 'Loan Spread': 0.0065 },
-    { 'Floating Ref': '3M', 'M': 108.0, 'LAST_PRICE': 0.0360085, 'Custodian': 'Barc', 'CoF v SOFR': 0.001, 'Swap Cost': 0.0005, 'Loan Spread': 0.0065 },
-    { 'Floating Ref': '3M', 'M': 144.0, 'LAST_PRICE': 0.0375517, 'Custodian': 'Barc', 'CoF v SOFR': 0.001, 'Swap Cost': 0.0005, 'Loan Spread': 0.0065 },
-    { 'Floating Ref': None, 'M': 0.25, 'LAST_PRICE': 0.039867, 'Custodian': 'CAI', 'CoF v SOFR': 0.0025, 'Swap Cost': 0.0, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': None, 'M': 0.5, 'LAST_PRICE': 0.0399563, 'Custodian': 'CAI', 'CoF v SOFR': 0.0025, 'Swap Cost': 0.0, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': None, 'M': 0.75, 'LAST_PRICE': 0.0398649, 'Custodian': 'CAI', 'CoF v SOFR': 0.0025, 'Swap Cost': 0.0, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '1M', 'M': 1.0, 'LAST_PRICE': 0.039925, 'Custodian': 'CAI', 'CoF v SOFR': 0.0025, 'Swap Cost': 0.0, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '1M', 'M': 2.0, 'LAST_PRICE': 0.0393299, 'Custodian': 'CAI', 'CoF v SOFR': 0.0025, 'Swap Cost': 0.0, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 3.0, 'LAST_PRICE': 0.0388755, 'Custodian': 'CAI', 'CoF v SOFR': 0.0025, 'Swap Cost': 0.0, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 4.0, 'LAST_PRICE': 0.03848, 'Custodian': 'CAI', 'CoF v SOFR': 0.0025, 'Swap Cost': 0.0003, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 5.0, 'LAST_PRICE': 0.0381285, 'Custodian': 'CAI', 'CoF v SOFR': 0.0025, 'Swap Cost': 0.0003, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '6M', 'M': 6.0, 'LAST_PRICE': 0.0378526, 'Custodian': 'CAI', 'CoF v SOFR': 0.0025, 'Swap Cost': 0.0003, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 7.0, 'LAST_PRICE': 0.037563, 'Custodian': 'CAI', 'CoF v SOFR': 0.0025, 'Swap Cost': 0.0003, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 8.0, 'LAST_PRICE': 0.0372395, 'Custodian': 'CAI', 'CoF v SOFR': 0.0025, 'Swap Cost': 0.0003, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '9M', 'M': 9.0, 'LAST_PRICE': 0.0369332, 'Custodian': 'CAI', 'CoF v SOFR': 0.0025, 'Swap Cost': 0.0003, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 10.0, 'LAST_PRICE': 0.0365935, 'Custodian': 'CAI', 'CoF v SOFR': 0.0025, 'Swap Cost': 0.0003, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 11.0, 'LAST_PRICE': 0.0362817, 'Custodian': 'CAI', 'CoF v SOFR': 0.0025, 'Swap Cost': 0.0003, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '12M', 'M': 12.0, 'LAST_PRICE': 0.035995, 'Custodian': 'CAI', 'CoF v SOFR': 0.0025, 'Swap Cost': 0.0003, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 13.0, 'LAST_PRICE': 0.035629, 'Custodian': 'CAI', 'CoF v SOFR': 0.0025, 'Swap Cost': 0.0003, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 14.0, 'LAST_PRICE': 0.0352932, 'Custodian': 'CAI', 'CoF v SOFR': 0.0025, 'Swap Cost': 0.0003, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 15.0, 'LAST_PRICE': 0.035, 'Custodian': 'CAI', 'CoF v SOFR': 0.0025, 'Swap Cost': 0.0003, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 16.0, 'LAST_PRICE': 0.034766, 'Custodian': 'CAI', 'CoF v SOFR': 0.0025, 'Swap Cost': 0.0003, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 17.0, 'LAST_PRICE': 0.0345381, 'Custodian': 'CAI', 'CoF v SOFR': 0.0025, 'Swap Cost': 0.0003, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 18.0, 'LAST_PRICE': 0.034362, 'Custodian': 'CAI', 'CoF v SOFR': 0.0025, 'Swap Cost': 0.0003, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 19.0, 'LAST_PRICE': 0.034195, 'Custodian': 'CAI', 'CoF v SOFR': 0.0025, 'Swap Cost': 0.0003, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 20.0, 'LAST_PRICE': 0.0340556, 'Custodian': 'CAI', 'CoF v SOFR': 0.0025, 'Swap Cost': 0.0003, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 21.0, 'LAST_PRICE': 0.03394, 'Custodian': 'CAI', 'CoF v SOFR': 0.0025, 'Swap Cost': 0.0003, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 22.0, 'LAST_PRICE': 0.0338324, 'Custodian': 'CAI', 'CoF v SOFR': 0.0025, 'Swap Cost': 0.0003, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 23.0, 'LAST_PRICE': 0.0337583, 'Custodian': 'CAI', 'CoF v SOFR': 0.0025, 'Swap Cost': 0.0003, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 24.0, 'LAST_PRICE': 0.033683, 'Custodian': 'CAI', 'CoF v SOFR': 0.0025, 'Swap Cost': 0.0003, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 25.0, 'LAST_PRICE': None, 'Custodian': 'CAI', 'CoF v SOFR': 0.0025, 'Swap Cost': 0.0003, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 26.0, 'LAST_PRICE': None, 'Custodian': 'CAI', 'CoF v SOFR': 0.0025, 'Swap Cost': 0.0003, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 27.0, 'LAST_PRICE': 0.033423, 'Custodian': 'CAI', 'CoF v SOFR': 0.0025, 'Swap Cost': 0.0003, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 28.0, 'LAST_PRICE': None, 'Custodian': 'CAI', 'CoF v SOFR': 0.0025, 'Swap Cost': 0.0003, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 29.0, 'LAST_PRICE': None, 'Custodian': 'CAI', 'CoF v SOFR': 0.0025, 'Swap Cost': 0.0003, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 30.0, 'LAST_PRICE': 0.033291, 'Custodian': 'CAI', 'CoF v SOFR': 0.0025, 'Swap Cost': 0.0003, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 31.0, 'LAST_PRICE': None, 'Custodian': 'CAI', 'CoF v SOFR': 0.0025, 'Swap Cost': 0.0003, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 32.0, 'LAST_PRICE': None, 'Custodian': 'CAI', 'CoF v SOFR': 0.0025, 'Swap Cost': 0.0003, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 33.0, 'LAST_PRICE': 0.0332509, 'Custodian': 'CAI', 'CoF v SOFR': 0.0025, 'Swap Cost': 0.0003, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 34.0, 'LAST_PRICE': None, 'Custodian': 'CAI', 'CoF v SOFR': 0.0025, 'Swap Cost': 0.0003, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 35.0, 'LAST_PRICE': None, 'Custodian': 'CAI', 'CoF v SOFR': 0.0025, 'Swap Cost': 0.0003, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 36.0, 'LAST_PRICE': 0.0332725, 'Custodian': 'CAI', 'CoF v SOFR': 0.0025, 'Swap Cost': 0.0003, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 42.0, 'LAST_PRICE': 0.033265, 'Custodian': 'CAI', 'CoF v SOFR': 0.0025, 'Swap Cost': 0.0003, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 48.0, 'LAST_PRICE': 0.0334167, 'Custodian': 'CAI', 'CoF v SOFR': 0.0025, 'Swap Cost': 0.0003, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 54.0, 'LAST_PRICE': None, 'Custodian': 'CAI', 'CoF v SOFR': 0.0025, 'Swap Cost': 0.0003, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 57.0, 'LAST_PRICE': None, 'Custodian': 'CAI', 'CoF v SOFR': 0.0025, 'Swap Cost': 0.0003, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 60.0, 'LAST_PRICE': 0.0337801, 'Custodian': 'CAI', 'CoF v SOFR': 0.0025, 'Swap Cost': 0.0003, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 63.0, 'LAST_PRICE': None, 'Custodian': 'CAI', 'CoF v SOFR': 0.0025, 'Swap Cost': 0.0003, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 72.0, 'LAST_PRICE': 0.03431, 'Custodian': 'CAI', 'CoF v SOFR': 0.0025, 'Swap Cost': 0.0003, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 84.0, 'LAST_PRICE': 0.03488, 'Custodian': 'CAI', 'CoF v SOFR': 0.0025, 'Swap Cost': 0.0003, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 96.0, 'LAST_PRICE': 0.03545, 'Custodian': 'CAI', 'CoF v SOFR': 0.0025, 'Swap Cost': 0.0003, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 108.0, 'LAST_PRICE': 0.0360085, 'Custodian': 'CAI', 'CoF v SOFR': 0.0025, 'Swap Cost': 0.0003, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 144.0, 'LAST_PRICE': 0.0375517, 'Custodian': 'CAI', 'CoF v SOFR': 0.0025, 'Swap Cost': 0.0003, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': None, 'M': 0.25, 'LAST_PRICE': 0.039867, 'Custodian': 'DB', 'CoF v SOFR': 0.0, 'Swap Cost': 0.0, 'Loan Spread': 0.0068 },
-    { 'Floating Ref': None, 'M': 0.5, 'LAST_PRICE': 0.0399563, 'Custodian': 'DB', 'CoF v SOFR': 0.0, 'Swap Cost': 0.0, 'Loan Spread': 0.0068 },
-    { 'Floating Ref': None, 'M': 0.75, 'LAST_PRICE': 0.0398649, 'Custodian': 'DB', 'CoF v SOFR': 0.0, 'Swap Cost': 0.0, 'Loan Spread': 0.0068 },
-    { 'Floating Ref': '1M', 'M': 1.0, 'LAST_PRICE': 0.039925, 'Custodian': 'DB', 'CoF v SOFR': 0.0, 'Swap Cost': 0.0, 'Loan Spread': 0.0068 },
-    { 'Floating Ref': '1M', 'M': 2.0, 'LAST_PRICE': 0.0393299, 'Custodian': 'DB', 'CoF v SOFR': 0.0, 'Swap Cost': 0.0, 'Loan Spread': 0.0068 },
-    { 'Floating Ref': '3M', 'M': 3.0, 'LAST_PRICE': 0.0388755, 'Custodian': 'DB', 'CoF v SOFR': 0.0, 'Swap Cost': 0.0, 'Loan Spread': 0.0068 },
-    { 'Floating Ref': '3M', 'M': 4.0, 'LAST_PRICE': 0.03848, 'Custodian': 'DB', 'CoF v SOFR': 0.0, 'Swap Cost': 0.0, 'Loan Spread': 0.0068 },
-    { 'Floating Ref': '3M', 'M': 5.0, 'LAST_PRICE': 0.0381285, 'Custodian': 'DB', 'CoF v SOFR': 0.0, 'Swap Cost': 0.0, 'Loan Spread': 0.0068 },
-    { 'Floating Ref': '6M', 'M': 6.0, 'LAST_PRICE': 0.0378526, 'Custodian': 'DB', 'CoF v SOFR': 0.0, 'Swap Cost': 0.0, 'Loan Spread': 0.0068 },
-    { 'Floating Ref': '3M', 'M': 7.0, 'LAST_PRICE': 0.037563, 'Custodian': 'DB', 'CoF v SOFR': 0.0, 'Swap Cost': 0.0, 'Loan Spread': 0.0068 },
-    { 'Floating Ref': '3M', 'M': 8.0, 'LAST_PRICE': 0.0372395, 'Custodian': 'DB', 'CoF v SOFR': 0.0, 'Swap Cost': 0.0, 'Loan Spread': 0.0068 },
-    { 'Floating Ref': '9M', 'M': 9.0, 'LAST_PRICE': 0.0369332, 'Custodian': 'DB', 'CoF v SOFR': 0.0, 'Swap Cost': 0.0, 'Loan Spread': 0.0068 },
-    { 'Floating Ref': '3M', 'M': 10.0, 'LAST_PRICE': 0.0365935, 'Custodian': 'DB', 'CoF v SOFR': 0.0, 'Swap Cost': 0.0, 'Loan Spread': 0.0068 },
-    { 'Floating Ref': '3M', 'M': 11.0, 'LAST_PRICE': 0.0362817, 'Custodian': 'DB', 'CoF v SOFR': 0.0, 'Swap Cost': 0.0, 'Loan Spread': 0.0068 },
-    { 'Floating Ref': '12M', 'M': 12.0, 'LAST_PRICE': 0.035995, 'Custodian': 'DB', 'CoF v SOFR': 0.0, 'Swap Cost': 0.0, 'Loan Spread': 0.0068 },
-    { 'Floating Ref': '3M', 'M': 13.0, 'LAST_PRICE': 0.035629, 'Custodian': 'DB', 'CoF v SOFR': 0.0, 'Swap Cost': 0.001, 'Loan Spread': 0.0068 },
-    { 'Floating Ref': '3M', 'M': 14.0, 'LAST_PRICE': 0.0352932, 'Custodian': 'DB', 'CoF v SOFR': 0.0, 'Swap Cost': 0.001, 'Loan Spread': 0.0068 },
-    { 'Floating Ref': '3M', 'M': 15.0, 'LAST_PRICE': 0.035, 'Custodian': 'DB', 'CoF v SOFR': 0.0, 'Swap Cost': 0.001, 'Loan Spread': 0.0068 },
-    { 'Floating Ref': '3M', 'M': 16.0, 'LAST_PRICE': 0.034766, 'Custodian': 'DB', 'CoF v SOFR': 0.0, 'Swap Cost': 0.001, 'Loan Spread': 0.0068 },
-    { 'Floating Ref': '3M', 'M': 17.0, 'LAST_PRICE': 0.0345381, 'Custodian': 'DB', 'CoF v SOFR': 0.0, 'Swap Cost': 0.001, 'Loan Spread': 0.0068 },
-    { 'Floating Ref': '3M', 'M': 18.0, 'LAST_PRICE': 0.034362, 'Custodian': 'DB', 'CoF v SOFR': 0.0, 'Swap Cost': 0.001, 'Loan Spread': 0.0068 },
-    { 'Floating Ref': '3M', 'M': 19.0, 'LAST_PRICE': 0.034195, 'Custodian': 'DB', 'CoF v SOFR': 0.0, 'Swap Cost': 0.001, 'Loan Spread': 0.0068 },
-    { 'Floating Ref': '3M', 'M': 20.0, 'LAST_PRICE': 0.0340556, 'Custodian': 'DB', 'CoF v SOFR': 0.0, 'Swap Cost': 0.001, 'Loan Spread': 0.0068 },
-    { 'Floating Ref': '3M', 'M': 21.0, 'LAST_PRICE': 0.03394, 'Custodian': 'DB', 'CoF v SOFR': 0.0, 'Swap Cost': 0.001, 'Loan Spread': 0.0068 },
-    { 'Floating Ref': '3M', 'M': 22.0, 'LAST_PRICE': 0.0338324, 'Custodian': 'DB', 'CoF v SOFR': 0.0, 'Swap Cost': 0.001, 'Loan Spread': 0.0068 },
-    { 'Floating Ref': '3M', 'M': 23.0, 'LAST_PRICE': 0.0337583, 'Custodian': 'DB', 'CoF v SOFR': 0.0, 'Swap Cost': 0.001, 'Loan Spread': 0.0068 },
-    { 'Floating Ref': '3M', 'M': 24.0, 'LAST_PRICE': 0.033683, 'Custodian': 'DB', 'CoF v SOFR': 0.0, 'Swap Cost': 0.001, 'Loan Spread': 0.0068 },
-    { 'Floating Ref': '3M', 'M': 25.0, 'LAST_PRICE': None, 'Custodian': 'DB', 'CoF v SOFR': 0.0, 'Swap Cost': 0.001, 'Loan Spread': 0.0068 },
-    { 'Floating Ref': '3M', 'M': 26.0, 'LAST_PRICE': None, 'Custodian': 'DB', 'CoF v SOFR': 0.0, 'Swap Cost': 0.001, 'Loan Spread': 0.0068 },
-    { 'Floating Ref': '3M', 'M': 27.0, 'LAST_PRICE': 0.033423, 'Custodian': 'DB', 'CoF v SOFR': 0.0, 'Swap Cost': 0.001, 'Loan Spread': 0.0068 },
-    { 'Floating Ref': '3M', 'M': 28.0, 'LAST_PRICE': None, 'Custodian': 'DB', 'CoF v SOFR': 0.0, 'Swap Cost': 0.001, 'Loan Spread': 0.0068 },
-    { 'Floating Ref': '3M', 'M': 29.0, 'LAST_PRICE': None, 'Custodian': 'DB', 'CoF v SOFR': 0.0, 'Swap Cost': 0.001, 'Loan Spread': 0.0068 },
-    { 'Floating Ref': '3M', 'M': 30.0, 'LAST_PRICE': 0.033291, 'Custodian': 'DB', 'CoF v SOFR': 0.0, 'Swap Cost': 0.001, 'Loan Spread': 0.0068 },
-    { 'Floating Ref': '3M', 'M': 31.0, 'LAST_PRICE': None, 'Custodian': 'DB', 'CoF v SOFR': 0.0, 'Swap Cost': 0.001, 'Loan Spread': 0.0068 },
-    { 'Floating Ref': '3M', 'M': 32.0, 'LAST_PRICE': None, 'Custodian': 'DB', 'CoF v SOFR': 0.0, 'Swap Cost': 0.001, 'Loan Spread': 0.0068 },
-    { 'Floating Ref': '3M', 'M': 33.0, 'LAST_PRICE': 0.0332509, 'Custodian': 'DB', 'CoF v SOFR': 0.0, 'Swap Cost': 0.001, 'Loan Spread': 0.0068 },
-    { 'Floating Ref': '3M', 'M': 34.0, 'LAST_PRICE': None, 'Custodian': 'DB', 'CoF v SOFR': 0.0, 'Swap Cost': 0.001, 'Loan Spread': 0.0068 },
-    { 'Floating Ref': '3M', 'M': 35.0, 'LAST_PRICE': None, 'Custodian': 'DB', 'CoF v SOFR': 0.0, 'Swap Cost': 0.001, 'Loan Spread': 0.0068 },
-    { 'Floating Ref': '3M', 'M': 36.0, 'LAST_PRICE': 0.0332725, 'Custodian': 'DB', 'CoF v SOFR': 0.0, 'Swap Cost': 0.001, 'Loan Spread': 0.0068 },
-    { 'Floating Ref': '3M', 'M': 42.0, 'LAST_PRICE': 0.033265, 'Custodian': 'DB', 'CoF v SOFR': 0.0, 'Swap Cost': 0.001, 'Loan Spread': 0.0068 },
-    { 'Floating Ref': '3M', 'M': 48.0, 'LAST_PRICE': 0.0334167, 'Custodian': 'DB', 'CoF v SOFR': 0.0, 'Swap Cost': 0.001, 'Loan Spread': 0.0068 },
-    { 'Floating Ref': '3M', 'M': 54.0, 'LAST_PRICE': None, 'Custodian': 'DB', 'CoF v SOFR': 0.0, 'Swap Cost': 0.001, 'Loan Spread': 0.0068 },
-    { 'Floating Ref': '3M', 'M': 57.0, 'LAST_PRICE': None, 'Custodian': 'DB', 'CoF v SOFR': 0.0, 'Swap Cost': 0.001, 'Loan Spread': 0.0068 },
-    { 'Floating Ref': '3M', 'M': 60.0, 'LAST_PRICE': 0.0337801, 'Custodian': 'DB', 'CoF v SOFR': 0.0, 'Swap Cost': 0.001, 'Loan Spread': 0.0068 },
-    { 'Floating Ref': '3M', 'M': 63.0, 'LAST_PRICE': None, 'Custodian': 'DB', 'CoF v SOFR': 0.0, 'Swap Cost': 0.001, 'Loan Spread': 0.0068 },
-    { 'Floating Ref': '3M', 'M': 72.0, 'LAST_PRICE': 0.03431, 'Custodian': 'DB', 'CoF v SOFR': 0.0, 'Swap Cost': 0.001, 'Loan Spread': 0.0068 },
-    { 'Floating Ref': '3M', 'M': 84.0, 'LAST_PRICE': 0.03488, 'Custodian': 'DB', 'CoF v SOFR': 0.0, 'Swap Cost': 0.001, 'Loan Spread': 0.0068 },
-    { 'Floating Ref': '3M', 'M': 96.0, 'LAST_PRICE': 0.03545, 'Custodian': 'DB', 'CoF v SOFR': 0.0, 'Swap Cost': 0.001, 'Loan Spread': 0.0068 },
-    { 'Floating Ref': '3M', 'M': 108.0, 'LAST_PRICE': 0.0360085, 'Custodian': 'DB', 'CoF v SOFR': 0.0, 'Swap Cost': 0.001, 'Loan Spread': 0.0068 },
-    { 'Floating Ref': '3M', 'M': 144.0, 'LAST_PRICE': 0.0375517, 'Custodian': 'DB', 'CoF v SOFR': 0.0, 'Swap Cost': 0.001, 'Loan Spread': 0.0068 },
-    { 'Floating Ref': None, 'M': 0.25, 'LAST_PRICE': 0.039867, 'Custodian': 'SG', 'CoF v SOFR': 0.002, 'Swap Cost': 0.0, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': None, 'M': 0.5, 'LAST_PRICE': 0.0399563, 'Custodian': 'SG', 'CoF v SOFR': 0.002, 'Swap Cost': 0.0, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': None, 'M': 0.75, 'LAST_PRICE': 0.0398649, 'Custodian': 'SG', 'CoF v SOFR': 0.002, 'Swap Cost': 0.0, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '1M', 'M': 1.0, 'LAST_PRICE': 0.039925, 'Custodian': 'SG', 'CoF v SOFR': 0.002, 'Swap Cost': 0.0, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '1M', 'M': 2.0, 'LAST_PRICE': 0.0393299, 'Custodian': 'SG', 'CoF v SOFR': 0.002, 'Swap Cost': 0.0, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 3.0, 'LAST_PRICE': 0.0388755, 'Custodian': 'SG', 'CoF v SOFR': 0.002, 'Swap Cost': 0.0, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 4.0, 'LAST_PRICE': 0.03848, 'Custodian': 'SG', 'CoF v SOFR': 0.002, 'Swap Cost': 0.0008, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 5.0, 'LAST_PRICE': 0.0381285, 'Custodian': 'SG', 'CoF v SOFR': 0.002, 'Swap Cost': 0.0008, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '6M', 'M': 6.0, 'LAST_PRICE': 0.0378526, 'Custodian': 'SG', 'CoF v SOFR': 0.002, 'Swap Cost': 0.0008, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 7.0, 'LAST_PRICE': 0.037563, 'Custodian': 'SG', 'CoF v SOFR': 0.002, 'Swap Cost': 0.0008, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 8.0, 'LAST_PRICE': 0.0372395, 'Custodian': 'SG', 'CoF v SOFR': 0.002, 'Swap Cost': 0.0008, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '9M', 'M': 9.0, 'LAST_PRICE': 0.0369332, 'Custodian': 'SG', 'CoF v SOFR': 0.002, 'Swap Cost': 0.0008, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 10.0, 'LAST_PRICE': 0.0365935, 'Custodian': 'SG', 'CoF v SOFR': 0.002, 'Swap Cost': 0.0008, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 11.0, 'LAST_PRICE': 0.0362817, 'Custodian': 'SG', 'CoF v SOFR': 0.002, 'Swap Cost': 0.0008, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '12M', 'M': 12.0, 'LAST_PRICE': 0.035995, 'Custodian': 'SG', 'CoF v SOFR': 0.002, 'Swap Cost': 0.0008, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 13.0, 'LAST_PRICE': 0.035629, 'Custodian': 'SG', 'CoF v SOFR': 0.002, 'Swap Cost': 0.0008, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 14.0, 'LAST_PRICE': 0.0352932, 'Custodian': 'SG', 'CoF v SOFR': 0.002, 'Swap Cost': 0.0008, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 15.0, 'LAST_PRICE': 0.035, 'Custodian': 'SG', 'CoF v SOFR': 0.002, 'Swap Cost': 0.0008, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 16.0, 'LAST_PRICE': 0.034766, 'Custodian': 'SG', 'CoF v SOFR': 0.002, 'Swap Cost': 0.0008, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 17.0, 'LAST_PRICE': 0.0345381, 'Custodian': 'SG', 'CoF v SOFR': 0.002, 'Swap Cost': 0.0008, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 18.0, 'LAST_PRICE': 0.034362, 'Custodian': 'SG', 'CoF v SOFR': 0.002, 'Swap Cost': 0.0008, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 19.0, 'LAST_PRICE': 0.034195, 'Custodian': 'SG', 'CoF v SOFR': 0.002, 'Swap Cost': 0.0008, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 20.0, 'LAST_PRICE': 0.0340556, 'Custodian': 'SG', 'CoF v SOFR': 0.002, 'Swap Cost': 0.0008, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 21.0, 'LAST_PRICE': 0.03394, 'Custodian': 'SG', 'CoF v SOFR': 0.002, 'Swap Cost': 0.0008, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 22.0, 'LAST_PRICE': 0.0338324, 'Custodian': 'SG', 'CoF v SOFR': 0.002, 'Swap Cost': 0.0008, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 23.0, 'LAST_PRICE': 0.0337583, 'Custodian': 'SG', 'CoF v SOFR': 0.002, 'Swap Cost': 0.0008, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 24.0, 'LAST_PRICE': 0.033683, 'Custodian': 'SG', 'CoF v SOFR': 0.002, 'Swap Cost': 0.0008, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 25.0, 'LAST_PRICE': None, 'Custodian': 'SG', 'CoF v SOFR': 0.002, 'Swap Cost': 0.0008, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 26.0, 'LAST_PRICE': None, 'Custodian': 'SG', 'CoF v SOFR': 0.002, 'Swap Cost': 0.0008, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 27.0, 'LAST_PRICE': 0.033423, 'Custodian': 'SG', 'CoF v SOFR': 0.002, 'Swap Cost': 0.0008, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 28.0, 'LAST_PRICE': None, 'Custodian': 'SG', 'CoF v SOFR': 0.002, 'Swap Cost': 0.0008, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 29.0, 'LAST_PRICE': None, 'Custodian': 'SG', 'CoF v SOFR': 0.002, 'Swap Cost': 0.0008, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 30.0, 'LAST_PRICE': 0.033291, 'Custodian': 'SG', 'CoF v SOFR': 0.002, 'Swap Cost': 0.0008, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 31.0, 'LAST_PRICE': None, 'Custodian': 'SG', 'CoF v SOFR': 0.002, 'Swap Cost': 0.0008, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 32.0, 'LAST_PRICE': None, 'Custodian': 'SG', 'CoF v SOFR': 0.002, 'Swap Cost': 0.0008, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 33.0, 'LAST_PRICE': 0.0332509, 'Custodian': 'SG', 'CoF v SOFR': 0.002, 'Swap Cost': 0.0008, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 34.0, 'LAST_PRICE': None, 'Custodian': 'SG', 'CoF v SOFR': 0.002, 'Swap Cost': 0.0008, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 35.0, 'LAST_PRICE': None, 'Custodian': 'SG', 'CoF v SOFR': 0.002, 'Swap Cost': 0.0008, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 36.0, 'LAST_PRICE': 0.0332725, 'Custodian': 'SG', 'CoF v SOFR': 0.002, 'Swap Cost': 0.0008, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 42.0, 'LAST_PRICE': 0.033265, 'Custodian': 'SG', 'CoF v SOFR': 0.002, 'Swap Cost': 0.0008, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 48.0, 'LAST_PRICE': 0.0334167, 'Custodian': 'SG', 'CoF v SOFR': 0.002, 'Swap Cost': 0.0008, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 54.0, 'LAST_PRICE': None, 'Custodian': 'SG', 'CoF v SOFR': 0.002, 'Swap Cost': 0.0008, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 57.0, 'LAST_PRICE': None, 'Custodian': 'SG', 'CoF v SOFR': 0.002, 'Swap Cost': 0.0008, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 60.0, 'LAST_PRICE': 0.0337801, 'Custodian': 'SG', 'CoF v SOFR': 0.002, 'Swap Cost': 0.0008, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 63.0, 'LAST_PRICE': None, 'Custodian': 'SG', 'CoF v SOFR': 0.002, 'Swap Cost': 0.0008, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 72.0, 'LAST_PRICE': 0.03431, 'Custodian': 'SG', 'CoF v SOFR': 0.002, 'Swap Cost': 0.0008, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 84.0, 'LAST_PRICE': 0.03488, 'Custodian': 'SG', 'CoF v SOFR': 0.002, 'Swap Cost': 0.0008, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 96.0, 'LAST_PRICE': 0.03545, 'Custodian': 'SG', 'CoF v SOFR': 0.002, 'Swap Cost': 0.0008, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 108.0, 'LAST_PRICE': 0.0360085, 'Custodian': 'SG', 'CoF v SOFR': 0.002, 'Swap Cost': 0.0008, 'Loan Spread': 0.0045 },
-    { 'Floating Ref': '3M', 'M': 144.0, 'LAST_PRICE': 0.0375517, 'Custodian': 'SG', 'CoF v SOFR': 0.002, 'Swap Cost': 0.0008, 'Loan Spread': 0.0045 },
-]
+        {'Floating Ref': '1M', 'M': 1.0, 'LAST_PRICE': 0.039925, 'Custodian': 'DB', 'CoF v SOFR': 0.0, 'Swap Cost': 0.0, 'Loan Spread': 0.0068},
+        {'Floating Ref': '1M', 'M': 2.0, 'LAST_PRICE': 0.0393299, 'Custodian': 'DB', 'CoF v SOFR': 0.0, 'Swap Cost': 0.0, 'Loan Spread': 0.0068},
+        {'Floating Ref': '3M', 'M': 3.0, 'LAST_PRICE': 0.0388755, 'Custodian': 'DB', 'CoF v SOFR': 0.0, 'Swap Cost': 0.0, 'Loan Spread': 0.0068},
+        {'Floating Ref': '3M', 'M': 4.0, 'LAST_PRICE': 0.03848, 'Custodian': 'DB', 'CoF v SOFR': 0.0, 'Swap Cost': 0.0, 'Loan Spread': 0.0068},
+        {'Floating Ref': '3M', 'M': 5.0, 'LAST_PRICE': 0.0381285, 'Custodian': 'DB', 'CoF v SOFR': 0.0, 'Swap Cost': 0.0, 'Loan Spread': 0.0068},
+        {'Floating Ref': '6M', 'M': 6.0, 'LAST_PRICE': 0.0378526, 'Custodian': 'DB', 'CoF v SOFR': 0.0, 'Swap Cost': 0.0, 'Loan Spread': 0.0068},
+        {'Floating Ref': '3M', 'M': 7.0, 'LAST_PRICE': 0.037563, 'Custodian': 'DB', 'CoF v SOFR': 0.0, 'Swap Cost': 0.0, 'Loan Spread': 0.0068},
+        {'Floating Ref': '3M', 'M': 8.0, 'LAST_PRICE': 0.0372395, 'Custodian': 'DB', 'CoF v SOFR': 0.0, 'Swap Cost': 0.0, 'Loan Spread': 0.0068},
+        {'Floating Ref': '9M', 'M': 9.0, 'LAST_PRICE': 0.0369332, 'Custodian': 'DB', 'CoF v SOFR': 0.0, 'Swap Cost': 0.0, 'Loan Spread': 0.0068},
+        {'Floating Ref': '3M', 'M': 10.0, 'LAST_PRICE': 0.0365935, 'Custodian': 'DB', 'CoF v SOFR': 0.0, 'Swap Cost': 0.0, 'Loan Spread': 0.0068},
+        {'Floating Ref': '3M', 'M': 11.0, 'LAST_PRICE': 0.0362817, 'Custodian': 'DB', 'CoF v SOFR': 0.0, 'Swap Cost': 0.0, 'Loan Spread': 0.0068},
+        {'Floating Ref': '12M', 'M': 12.0, 'LAST_PRICE': 0.035995, 'Custodian': 'DB', 'CoF v SOFR': 0.0, 'Swap Cost': 0.0, 'Loan Spread': 0.0068},
+        # SG Data
+        {'Floating Ref': '1M', 'M': 1.0, 'LAST_PRICE': 0.039925, 'Custodian': 'SG', 'CoF v SOFR': 0.002, 'Swap Cost': 0.0, 'Loan Spread': 0.0045},
+        {'Floating Ref': '1M', 'M': 2.0, 'LAST_PRICE': 0.0393299, 'Custodian': 'SG', 'CoF v SOFR': 0.002, 'Swap Cost': 0.0, 'Loan Spread': 0.0045},
+        {'Floating Ref': '3M', 'M': 3.0, 'LAST_PRICE': 0.0388755, 'Custodian': 'SG', 'CoF v SOFR': 0.002, 'Swap Cost': 0.0, 'Loan Spread': 0.0045},
+        {'Floating Ref': '3M', 'M': 4.0, 'LAST_PRICE': 0.03848, 'Custodian': 'SG', 'CoF v SOFR': 0.002, 'Swap Cost': 0.0008, 'Loan Spread': 0.0045},
+        {'Floating Ref': '3M', 'M': 5.0, 'LAST_PRICE': 0.0381285, 'Custodian': 'SG', 'CoF v SOFR': 0.002, 'Swap Cost': 0.0008, 'Loan Spread': 0.0045},
+        {'Floating Ref': '6M', 'M': 6.0, 'LAST_PRICE': 0.0378526, 'Custodian': 'SG', 'CoF v SOFR': 0.002, 'Swap Cost': 0.0008, 'Loan Spread': 0.0045},
+        {'Floating Ref': '3M', 'M': 7.0, 'LAST_PRICE': 0.037563, 'Custodian': 'SG', 'CoF v SOFR': 0.002, 'Swap Cost': 0.0008, 'Loan Spread': 0.0045},
+        {'Floating Ref': '3M', 'M': 8.0, 'LAST_PRICE': 0.0372395, 'Custodian': 'SG', 'CoF v SOFR': 0.002, 'Swap Cost': 0.0008, 'Loan Spread': 0.0045},
+        {'Floating Ref': '9M', 'M': 9.0, 'LAST_PRICE': 0.0369332, 'Custodian': 'SG', 'CoF v SOFR': 0.002, 'Swap Cost': 0.0008, 'Loan Spread': 0.0045},
+        {'Floating Ref': '3M', 'M': 10.0, 'LAST_PRICE': 0.0365935, 'Custodian': 'SG', 'CoF v SOFR': 0.002, 'Swap Cost': 0.0008, 'Loan Spread': 0.0045},
+        {'Floating Ref': '3M', 'M': 11.0, 'LAST_PRICE': 0.0362817, 'Custodian': 'SG', 'CoF v SOFR': 0.002, 'Swap Cost': 0.0008, 'Loan Spread': 0.0045},
+        {'Floating Ref': '12M', 'M': 12.0, 'LAST_PRICE': 0.035995, 'Custodian': 'SG', 'CoF v SOFR': 0.002, 'Swap Cost': 0.0008, 'Loan Spread': 0.0045},
+        # Barc Data  
+        {'Floating Ref': '1M', 'M': 1.0, 'LAST_PRICE': 0.039925, 'Custodian': 'Barc', 'CoF v SOFR': 0.001, 'Swap Cost': 0.0005, 'Loan Spread': 0.0065},
+        {'Floating Ref': '1M', 'M': 2.0, 'LAST_PRICE': 0.0393299, 'Custodian': 'Barc', 'CoF v SOFR': 0.001, 'Swap Cost': 0.0005, 'Loan Spread': 0.0065},
+        {'Floating Ref': '3M', 'M': 3.0, 'LAST_PRICE': 0.0388755, 'Custodian': 'Barc', 'CoF v SOFR': 0.001, 'Swap Cost': 0.0005, 'Loan Spread': 0.0065},
+        {'Floating Ref': '3M', 'M': 4.0, 'LAST_PRICE': 0.03848, 'Custodian': 'Barc', 'CoF v SOFR': 0.001, 'Swap Cost': 0.0005, 'Loan Spread': 0.0065},
+        {'Floating Ref': '3M', 'M': 5.0, 'LAST_PRICE': 0.0381285, 'Custodian': 'Barc', 'CoF v SOFR': 0.001, 'Swap Cost': 0.0005, 'Loan Spread': 0.0065},
+        {'Floating Ref': '6M', 'M': 6.0, 'LAST_PRICE': 0.0378526, 'Custodian': 'Barc', 'CoF v SOFR': 0.001, 'Swap Cost': 0.0005, 'Loan Spread': 0.0065},
+        {'Floating Ref': '3M', 'M': 7.0, 'LAST_PRICE': 0.037563, 'Custodian': 'Barc', 'CoF v SOFR': 0.001, 'Swap Cost': 0.0005, 'Loan Spread': 0.0065},
+        {'Floating Ref': '3M', 'M': 8.0, 'LAST_PRICE': 0.0372395, 'Custodian': 'Barc', 'CoF v SOFR': 0.001, 'Swap Cost': 0.0005, 'Loan Spread': 0.0065},
+        {'Floating Ref': '9M', 'M': 9.0, 'LAST_PRICE': 0.0369332, 'Custodian': 'Barc', 'CoF v SOFR': 0.001, 'Swap Cost': 0.0005, 'Loan Spread': 0.0065},
+        {'Floating Ref': '3M', 'M': 10.0, 'LAST_PRICE': 0.0365935, 'Custodian': 'Barc', 'CoF v SOFR': 0.001, 'Swap Cost': 0.0005, 'Loan Spread': 0.0065},
+        {'Floating Ref': '3M', 'M': 11.0, 'LAST_PRICE': 0.0362817, 'Custodian': 'Barc', 'CoF v SOFR': 0.001, 'Swap Cost': 0.0005, 'Loan Spread': 0.0065},
+        {'Floating Ref': '12M', 'M': 12.0, 'LAST_PRICE': 0.035995, 'Custodian': 'Barc', 'CoF v SOFR': 0.001, 'Swap Cost': 0.0005, 'Loan Spread': 0.0065},
+        # CAI Data
+        {'Floating Ref': '1M', 'M': 1.0, 'LAST_PRICE': 0.039925, 'Custodian': 'CAI', 'CoF v SOFR': 0.0025, 'Swap Cost': 0.0, 'Loan Spread': 0.0045},
+        {'Floating Ref': '1M', 'M': 2.0, 'LAST_PRICE': 0.0393299, 'Custodian': 'CAI', 'CoF v SOFR': 0.0025, 'Swap Cost': 0.0, 'Loan Spread': 0.0045},
+        {'Floating Ref': '3M', 'M': 3.0, 'LAST_PRICE': 0.0388755, 'Custodian': 'CAI', 'CoF v SOFR': 0.0025, 'Swap Cost': 0.0, 'Loan Spread': 0.0045},
+        {'Floating Ref': '3M', 'M': 4.0, 'LAST_PRICE': 0.03848, 'Custodian': 'CAI', 'CoF v SOFR': 0.0025, 'Swap Cost': 0.0003, 'Loan Spread': 0.0045},
+        {'Floating Ref': '3M', 'M': 5.0, 'LAST_PRICE': 0.0381285, 'Custodian': 'CAI', 'CoF v SOFR': 0.0025, 'Swap Cost': 0.0003, 'Loan Spread': 0.0045},
+        {'Floating Ref': '6M', 'M': 6.0, 'LAST_PRICE': 0.0378526, 'Custodian': 'CAI', 'CoF v SOFR': 0.0025, 'Swap Cost': 0.0003, 'Loan Spread': 0.0045},
+        {'Floating Ref': '3M', 'M': 7.0, 'LAST_PRICE': 0.037563, 'Custodian': 'CAI', 'CoF v SOFR': 0.0025, 'Swap Cost': 0.0003, 'Loan Spread': 0.0045},
+        {'Floating Ref': '3M', 'M': 8.0, 'LAST_PRICE': 0.0372395, 'Custodian': 'CAI', 'CoF v SOFR': 0.0025, 'Swap Cost': 0.0003, 'Loan Spread': 0.0045},
+        {'Floating Ref': '9M', 'M': 9.0, 'LAST_PRICE': 0.0369332, 'Custodian': 'CAI', 'CoF v SOFR': 0.0025, 'Swap Cost': 0.0003, 'Loan Spread': 0.0045},
+        {'Floating Ref': '3M', 'M': 10.0, 'LAST_PRICE': 0.0365935, 'Custodian': 'CAI', 'CoF v SOFR': 0.0025, 'Swap Cost': 0.0003, 'Loan Spread': 0.0045},
+        {'Floating Ref': '3M', 'M': 11.0, 'LAST_PRICE': 0.0362817, 'Custodian': 'CAI', 'CoF v SOFR': 0.0025, 'Swap Cost': 0.0003, 'Loan Spread': 0.0045},
+        {'Floating Ref': '12M', 'M': 12.0, 'LAST_PRICE': 0.035995, 'Custodian': 'CAI', 'CoF v SOFR': 0.0025, 'Swap Cost': 0.0003, 'Loan Spread': 0.0045}
+    ]
     
     return pd.DataFrame(rate_data)
 
