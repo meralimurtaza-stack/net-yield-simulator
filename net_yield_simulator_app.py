@@ -530,6 +530,23 @@ with st.sidebar:
     
     st.divider()
     
+    # XIRR Payment Frequency Controls (moved up)
+    st.markdown("<h4>XIRR Payment Frequencies</h4>", unsafe_allow_html=True)
+    interest_freq = st.selectbox(
+        "Interest Payment Frequency", 
+        ["Quarterly", "Semi-Annual", "Annual"], 
+        index=0,
+        key="interest_payment_freq_selector"
+    )
+    coupon_freq = st.selectbox(
+        "Coupon Payment Frequency", 
+        ["Annual", "Semi-Annual", "Quarterly", "At Maturity"], 
+        index=0,
+        key="coupon_payment_freq_selector"
+    )
+    
+    st.divider()
+    
     # Returns & Rates
     st.markdown("<h4>Returns & Rates</h4>", unsafe_allow_html=True)
     coupon_type = st.text_input("Coupon Type", value="Fixed")
@@ -583,23 +600,6 @@ with st.sidebar:
     total_borrowing_cost = reference_rate + swap_cost + cof_spread + bank_spread
 
     st.info(f"Total Borrowing Cost: {total_borrowing_cost:.3%}")
-    
-    st.divider()
-    
-    # XIRR Payment Frequency Controls
-    st.markdown("<h4>XIRR Payment Frequencies</h4>", unsafe_allow_html=True)
-    interest_freq = st.selectbox(
-        "Interest Payment Frequency", 
-        ["Quarterly", "Semi-Annual", "Annual"], 
-        index=0,
-        key="interest_payment_freq_selector"
-    )
-    coupon_freq = st.selectbox(
-        "Coupon Payment Frequency", 
-        ["Annual", "Semi-Annual", "Quarterly", "At Maturity"], 
-        index=0,
-        key="coupon_payment_freq_selector"
-    )
 
 # Main Content Area - Three Tables Only
 # Calculate cash flows
@@ -710,3 +710,54 @@ rate_breakdown_data = pd.DataFrame({
 })
 
 st.dataframe(rate_breakdown_data, use_container_width=True, hide_index=True)
+
+# REVERSE CALCULATOR: Calculate Required Coupon Rate from Desired Net Yield
+st.markdown("### Reverse Calculator", unsafe_allow_html=True)
+
+col1, col2 = st.columns(2)
+
+with col1:
+    desired_net_yield_pct = st.number_input(
+        "Desired Net Yield p.a. (%)",
+        min_value=0.0,
+        max_value=50.0,
+        value=8.0,
+        step=0.1,
+        format="%.1f",
+        help="Enter your target net yield to calculate the required coupon rate"
+    )
+    desired_net_yield = desired_net_yield_pct / 100
+
+with col2:
+    # Calculate required coupon rate
+    # Net Yield = (Coupon - Borrowing Cost) / (Equity * Years)
+    # Rearranging: Coupon = Net Yield * Equity * Years + Borrowing Cost
+    # Required Coupon Rate = Coupon / Total Invested
+    
+    if term_years > 0:
+        # Calculate required total coupon cash flow
+        required_coupon_cashflow = (desired_net_yield * equity * term_years) + borrowing_cost
+        
+        # Calculate required coupon rate based on daycount convention
+        if asset_daycount == "A/365":
+            required_coupon_rate = (required_coupon_cashflow * 365) / (total_invested * term_days)
+        elif asset_daycount == "A/360":
+            required_coupon_rate = (required_coupon_cashflow * 360) / (total_invested * term_days)
+        else:  # 30/360
+            days_360_calc = calculate_days360(issue_date_ts, maturity_date)
+            required_coupon_rate = (required_coupon_cashflow * 360) / (total_invested * days_360_calc)
+        
+        required_coupon_rate_pct = required_coupon_rate * 100
+        
+        # Display the result
+        st.info(f"**Required Coupon Rate p.a.:** {required_coupon_rate_pct:.2f}%")
+        
+        # Show calculation details in an expander
+        with st.expander("View Calculation Details"):
+            st.write(f"To achieve a net yield of {desired_net_yield_pct:.1f}%:")
+            st.write(f"- Total coupon income needed: ${required_coupon_cashflow:,.2f}")
+            st.write(f"- Current borrowing cost: ${borrowing_cost:,.2f}")
+            st.write(f"- Investment amount: ${total_invested:,.0f}")
+            st.write(f"- Daycount convention: {asset_daycount}")
+    else:
+        st.warning("Cannot calculate - term years must be greater than 0")
