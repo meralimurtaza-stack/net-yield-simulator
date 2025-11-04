@@ -24,7 +24,7 @@ except ImportError:
 # Page Configuration
 st.set_page_config(
     page_title="Net Yield Simulator Pro",
-    page_icon="📊",
+    page_icon="💰",
     layout="wide",
     initial_sidebar_state="expanded"
 )
@@ -32,8 +32,9 @@ st.set_page_config(
 # Custom CSS - Keep the same styling but remove header styles
 st.markdown("""
 <style>
-    /* Import Google Fonts */
+    /* Import Google Fonts and Material Icons */
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+    @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
     
     /* ==================== GLOBAL STYLES ==================== */
     * { 
@@ -60,11 +61,51 @@ st.markdown("""
         background-color: #e8ebf0 !important;
         border-right: 1px solid #d1d5db !important;
         transition: all 0.3s ease !important;
+        width: 420px !important;  /* Increased by 20% from ~350px default */
+        min-width: 420px !important;
     }
     
-    section[data-testid="stSidebar"] > div {
+    section[data-testid="stSidebar"] > div:first-child {
         background-color: #e8ebf0 !important;
         padding-top: 2rem !important;
+        width: 420px !important;  /* Match the sidebar width */
+    }
+    
+    /* Fix the collapse/expand arrow icon */
+    button[kind="header"] {
+        color: #4b5563 !important;
+    }
+    
+    /* Replace text fallback with arrow symbols */
+    button[kind="header"]:before {
+        content: "◀" !important;
+        font-size: 1.2rem !important;
+        color: #4b5563 !important;
+    }
+    
+    section[data-testid="stSidebar"][aria-expanded="false"] button[kind="header"]:before {
+        content: "▶" !important;
+    }
+    
+    /* Hide the fallback text completely */
+    button[kind="header"] {
+        font-size: 0 !important;
+        overflow: hidden !important;
+    }
+    
+    /* Ensure button is visible and clickable */
+    button[kind="header"] {
+        width: 32px !important;
+        height: 32px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        font-size: 0 !important;
+    }
+    
+    /* Hide any keyboard_double_arrow text */
+    .material-icons-outlined {
+        display: none !important;
     }
     
     /* Sidebar Headers */
