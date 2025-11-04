@@ -626,7 +626,7 @@ def generate_xirr_cashflows(equity, loan_notional, total_invested, interest_rate
                            start_date, end_date, interest_freq, coupon_freq):
     """Generate cash flows for XIRR calculation according to Complete_Net_Yield_Simulator_Requirements"""
     
-# Payment frequency mapping - months increment per payment
+    # Payment frequency mapping - months increment per payment
     freq_months = {
         "Quarterly": 3,
         "Semi-Annual": 6,
@@ -1067,13 +1067,15 @@ with tab1:
             <p>Rate: {coupon_rate:.2%} on ${total_invested:,.0f}</p>
         </div>
         """, unsafe_allow_html=True)
-with c2:
-        coupon_freq = st.selectbox(
-            "Coupon Payment Frequency", 
-            ["Annual", "Semi-Annual", "Quarterly", "At Maturity"], 
-            index=0,
-            key="coupon_payment_freq_selector"
-        )
+    
+    with c2:
+        st.markdown(f"""
+        <div class='cost-card'>
+            <h4>Borrowing Cost ({liability_daycount})</h4>
+            <h2>${selected_borrowing:,.2f}</h2>
+            <p>Rate: {total_borrowing_cost:.2%} on ${loan_notional:,.0f}</p>
+        </div>
+        """, unsafe_allow_html=True)
 
     # Optional detailed analysis (collapsed by default)
     with st.expander("View All Daycount Convention Comparisons"):
